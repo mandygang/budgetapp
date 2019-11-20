@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		16D27E9C1F3E042D80FBDAA2 /* Pods_BudgetingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3E5044A01641E962742175 /* Pods_BudgetingApp.framework */; };
 		3E57C27C2384FBBA00FEF6E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57C27B2384FBBA00FEF6E2 /* AppDelegate.swift */; };
 		3E57C2802384FBBA00FEF6E2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57C27F2384FBBA00FEF6E2 /* ViewController.swift */; };
 		3E57C2852384FBBA00FEF6E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E57C2842384FBBA00FEF6E2 /* Assets.xcassets */; };
@@ -20,6 +21,9 @@
 		3E57C2842384FBBA00FEF6E2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3E57C2872384FBBA00FEF6E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3E57C2892384FBBA00FEF6E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		55518A9DC4885ED8662AA222 /* Pods-BudgetingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BudgetingApp.debug.xcconfig"; path = "Target Support Files/Pods-BudgetingApp/Pods-BudgetingApp.debug.xcconfig"; sourceTree = "<group>"; };
+		E5C0D28754DCA3EADDD7194F /* Pods-BudgetingApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BudgetingApp.release.xcconfig"; path = "Target Support Files/Pods-BudgetingApp/Pods-BudgetingApp.release.xcconfig"; sourceTree = "<group>"; };
+		EC3E5044A01641E962742175 /* Pods_BudgetingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BudgetingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,17 +31,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16D27E9C1F3E042D80FBDAA2 /* Pods_BudgetingApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		145682739EB174AEACA0A1D2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EC3E5044A01641E962742175 /* Pods_BudgetingApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		3E57C26F2384FBBA00FEF6E2 = {
 			isa = PBXGroup;
 			children = (
 				3E57C27A2384FBBA00FEF6E2 /* BudgetingApp */,
 				3E57C2792384FBBA00FEF6E2 /* Products */,
+				9998C73026A6B0E3B4E935A2 /* Pods */,
+				145682739EB174AEACA0A1D2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -61,6 +76,16 @@
 			path = BudgetingApp;
 			sourceTree = "<group>";
 		};
+		9998C73026A6B0E3B4E935A2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				55518A9DC4885ED8662AA222 /* Pods-BudgetingApp.debug.xcconfig */,
+				E5C0D28754DCA3EADDD7194F /* Pods-BudgetingApp.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -68,9 +93,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3E57C28C2384FBBA00FEF6E2 /* Build configuration list for PBXNativeTarget "BudgetingApp" */;
 			buildPhases = (
+				F9CD421894C387181F52A88D /* [CP] Check Pods Manifest.lock */,
 				3E57C2742384FBBA00FEF6E2 /* Sources */,
 				3E57C2752384FBBA00FEF6E2 /* Frameworks */,
 				3E57C2762384FBBA00FEF6E2 /* Resources */,
+				A0CC09E944F5AB454D7AE3A4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -125,6 +152,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A0CC09E944F5AB454D7AE3A4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BudgetingApp/Pods-BudgetingApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BudgetingApp/Pods-BudgetingApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BudgetingApp/Pods-BudgetingApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F9CD421894C387181F52A88D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BudgetingApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3E57C2742384FBBA00FEF6E2 /* Sources */ = {
@@ -266,6 +335,7 @@
 		};
 		3E57C28D2384FBBA00FEF6E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 55518A9DC4885ED8662AA222 /* Pods-BudgetingApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -283,6 +353,7 @@
 		};
 		3E57C28E2384FBBA00FEF6E2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E5C0D28754DCA3EADDD7194F /* Pods-BudgetingApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
