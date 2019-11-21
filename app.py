@@ -1,11 +1,10 @@
 import json
-from db import db, Course, User, Assignment
+from db import db, User, Entry, Tag, Goal
 from flask import Flask, request
 import users_dao
 
-db_filename = "cms.db"
+db_filename = "budget.db"
 app = Flask(__name__)
-#Db = db.DB()
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///%s' % db_filename
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -32,11 +31,44 @@ def hello_world():
 """
 YOUR ROUTES BELOW
 """
-@app.route('/api/courses/')
-def get_courses():
-    courses = Course.query.all()
-    res = {'success': True, 'data': [c.serialize() for c in courses]}
+@app.route('/api/users/')
+def get_users():
+    users = User.query.all()
+    res = {'success': True, 'data': [u.serialize() for u in users]}
     return json.dumps(res), 200
+
+@app.route('/api/users/', methods=['POST'])
+def create_user():
+    post_body = json.loads(request.data)
+    first_name = post_body.get('first_name', '')
+    last_name = post_body.get('last_name', '')
+    email = post_body.get('email', '')
+    phoneNum = post_body.get('phone_number', '')
+    user = User(
+        firstName = first_name,
+        lastName = last_name,
+        email = email,
+        phoneNum = phoneNum
+    )
+    db.session.add(user)
+    db.session.commit()
+    return json.dumps({'success': True, 'data': user.serialize()}), 201
+
+@app.route('/api/user/<int:user_id>/')
+def get_user(user_id):
+    user = User.query.filter_by(id=user_id).first()
+    if not user:
+        return json.dumps({'success': False, 'error': 'User not found!'}), 404
+    return json.dumps({'success': True, 'data': user.serialize()}), 200
+
+@app.route('/api/user/<int:user_id>/', methods=['DELETE'])
+def delete_user(user_id):
+    user = User.query.get(user_id)
+    if not user:
+        return json.dumps({'success': False, 'error': 'User not found!'}), 404
+    db.session.delete(user)
+    db.session.commit()
+    return json.dumps({'success': True, 'data': user.serialize()}), 201
 
 @app.route('/api/courses/', methods=['POST'])
 def create_course():
@@ -58,26 +90,6 @@ def get_course(course_id):
         return json.dumps({'success': False, 'error': 'Course not found!'}), 404
     return json.dumps({'success': True, 'data': course.serialize()}), 200
 
-
-@app.route('/api/users/', methods=['POST'])
-def create_user():
-    post_body = json.loads(request.data)
-    name = post_body.get('name', '')
-    netid = post_body.get('netid', '')
-    user = User(
-        name = name,
-        netid = netid
-    )
-    db.session.add(user)
-    db.session.commit()
-    return json.dumps({'success': True, 'data': user.serialize()}), 201
-
-@app.route('/api/user/<int:user_id>/')
-def get_user(user_id):
-    user = User.query.filter_by(id=user_id).first()
-    if not user:
-        return json.dumps({'success': False, 'error': 'User not found!'}), 404
-    return json.dumps({'success': True, 'data': user.serialize()}), 200
 
 @app.route('/api/course/<int:course_id>/add/', methods=['POST'])
 def add_user(course_id):
@@ -193,4 +205,3 @@ def secret_message():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
-
