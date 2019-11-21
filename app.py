@@ -6,13 +6,14 @@ import users_dao
 db_filename = "budget.db"
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///%s' % db_filename
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_ECHO'] = True
-#
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///%s" % db_filename
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["SQLALCHEMY_ECHO"] = True
+
 db.init_app(app)
 with app.app_context():
     db.create_all()
+
 
 def extract_token(request):
     auth_header = request.headers.get("Authorization")
@@ -24,35 +25,16 @@ def extract_token(request):
 
     return True, bearer_token
 
-@app.route('/')
-def hello_world():
-    return 'Hello worldx!'
 
-"""
-YOUR ROUTES BELOW
-"""
+@app.route("/")
+def hello_world():
+    return json.dumps({"message": "Hello, World!"})
+
 @app.route('/api/users/')
 def get_users():
     users = User.query.all()
     res = {'success': True, 'data': [u.serialize() for u in users]}
     return json.dumps(res), 200
-
-@app.route('/api/users/', methods=['POST'])
-def create_user():
-    post_body = json.loads(request.data)
-    first_name = post_body.get('first_name', '')
-    last_name = post_body.get('last_name', '')
-    email = post_body.get('email', '')
-    phoneNum = post_body.get('phone_number', '')
-    user = User(
-        firstName = first_name,
-        lastName = last_name,
-        email = email,
-        phoneNum = phoneNum
-    )
-    db.session.add(user)
-    db.session.commit()
-    return json.dumps({'success': True, 'data': user.serialize()}), 201
 
 @app.route('/api/user/<int:user_id>/')
 def get_user(user_id):
@@ -70,6 +52,8 @@ def delete_user(user_id):
     db.session.commit()
     return json.dumps({'success': True, 'data': user.serialize()}), 201
 
+
+"""
 @app.route('/api/courses/', methods=['POST'])
 def create_course():
     post_body = json.loads(request.data)
@@ -129,8 +113,8 @@ def create_assignment(course_id):
     result = assignment.serialize()
     result['course'] = course.serialize2()
     return json.dumps({'success': True, 'data': result}), 200
+"""
 
-#AUTHENTICATION
 @app.route("/register/", methods=["POST"])
 def register_account():
     post_body = json.loads(request.data)
@@ -203,5 +187,6 @@ def secret_message():
 
     return json.dumps({'message': 'You have successfully implemented session tokens.'})
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)

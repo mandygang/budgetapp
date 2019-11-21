@@ -3,7 +3,7 @@ import json
 import bcrypt
 import hashlib
 import sqlite3
-from datetime import datetime
+import datetime
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -24,7 +24,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     firstName = db.Column(db.String, nullable = False)
     lastName = db.Column(db.String, nullable = False)
-    email = db.Column(db.String, nullable = False)
+    #email = db.Column(db.String, nullable = False)
     phoneNum = db.Column(db.String, nullable = True)
 
     # tables
@@ -62,13 +62,6 @@ class User(db.Model):
             'entries': [s.serialize() for s in self.entries],
             'goals': [s.serialize() for s in self.goals],
         }
-        
-    def __init__(self, **kwargs):
-        self.email = kwargs.get("email")
-        self.password_digest = bcrypt.hashpw(
-            kwargs.get("password").encode("utf8"), bcrypt.gensalt(rounds=13)
-        )
-        self.renew_session()
 
     # Used to randomly generate session/update tokens
     def _urlsafe_base_64(self):
