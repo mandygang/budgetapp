@@ -9,13 +9,12 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 # user_table = db.Table('users', db.Model.metadata,
-#                     db.Column('entry_id', db.Integer, db.ForeignKey('entry.id')),
-#                     db.Column('goal_id', db.Integer, db.ForeignKey('goal.id'))
+#                     db.Column('expense_id', db.Integer, db.ForeignKey('expense.id')),
+#                     db.Column('budget_id', db.Integer, db.ForeignKey('budget.id'))
 #                     )
-
 tag_table = db.Table('tags', db.Model.metadata,
                     db.Column('tag_id', db.Integer,db.ForeignKey('tag.id')),
-                    db.Column('entry_id', db.Integer,db.ForeignKey('entry.id'))
+                    db.Column('expense_id', db.Integer,db.ForeignKey('expense.id'))
                     )
 
 # General User information
@@ -24,12 +23,12 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     firstName = db.Column(db.String, nullable = False)
     lastName = db.Column(db.String, nullable = False)
-    #email = db.Column(db.String, nullable = False)
-    phoneNum = db.Column(db.String, nullable = True)
+    # email = db.Column(db.String, nullable = False)
+    # phoneNum = db.Column(db.String, nullable = True)
 
     # tables
-    entries = db.relationship('Entry', cascade='delete')
-    goals = db.relationship('Goal', cascade='delete')
+    expenses = db.relationship('Expense', cascade='delete')
+    budgets = db.relationship('Budget', cascade='delete')
 
     # User information
     email = db.Column(db.String, nullable=False, unique=True)
@@ -39,7 +38,7 @@ class User(db.Model):
     session_token = db.Column(db.String, nullable=False, unique=True)
     session_expiration = db.Column(db.DateTime, nullable=False)
     update_token = db.Column(db.String, nullable=False, unique=True)
-    
+
     def __init__(self, **kwargs):
         self.firstName = kwargs.get('firstName', '')
         self.lastName = kwargs.get('lastName', '')
@@ -47,9 +46,8 @@ class User(db.Model):
         self.password_digest = bcrypt.hashpw(
             kwargs.get("password").encode("utf8"), bcrypt.gensalt(rounds=13)
         )
-        self.phoneNum = kwargs.get('phoneNum', '')
-        self.entries = []
-        self.goals = []
+        self.expenses = []
+        self.budgets = []
         self.renew_session()
 
     def serialize(self):
@@ -58,9 +56,8 @@ class User(db.Model):
             'firstName': self.firstName,
             'lastName': self.lastName,
             'email': self.email,
-            'phoneNum': self.phoneNum,
-            'entries': [s.serialize() for s in self.entries],
-            'goals': [s.serialize() for s in self.goals],
+            'expenses': [s.serialize() for s in self.entries],
+            'budgets': [s.serialize() for s in self.budgets],
         }
 
     # Used to randomly generate session/update tokens
@@ -86,14 +83,13 @@ class User(db.Model):
     def verify_update_token(self, update_token):
         return update_token == self.update_token
 
-# Spending entry either Expenses or Income
-class Entry(db.Model):
-    __tablename__ = 'entry'
+# Spending expense
+class Expense(db.Model):
+    __tablename__ = 'expense'
     id = db.Column(db.Integer, primary_key = True)
-    title = db.Column(db.String, nullable = False)          # Title of the spending Entry
-    type = db.Column(db.String, nullable = False)           # Type of spending [EXPENSE, INCOME]
+    title = db.Column(db.String, nullable = False)          # Title of the spending expense
     amount = db.Column(db.Float, nullable = False)          # The amount spent, Do we assume USD or BRB??
-    description = db.Column(db.String, nullable = True)     # Optional description of the entry
+    description = db.Column(db.String, nullable = True)     # Optional description of the expense
     date = db.Column(db.Integer, nullable = False)          # Date the purchase was made (helps with display?)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)                              #IDK how to do this
@@ -101,30 +97,28 @@ class Entry(db.Model):
 
     def __init__(self, **kwargs):
         self.title = kwargs.get('title', '')
-        self.type = kwargs.get('type', '')
-        self.amount = kwargs.get('amount', '')
+        self.amount = kwargs.get('amount', 0.0)
         self.description = kwargs.get('description', '')
         self.date = kwargs.get('date', '')
-        self.user_id = kwargs.get('user_id', '')
+        self.user_id = kwargs.get('user_id', 0)
 
     def serialize(self):
         return {
             'id': self.id,
             'title': self.title,
-            'type': self.type,
             'amount': self.amount,
             'description': self.description,
             'date': self.date
         }
 
 
-# Optional decision to include the tag in your spending entry
-# name of the category [food, clothing, transport, entertainment, groceries, bills, miscellaneous, spending(Include for goal)]
+# Optional decision to include the tag in your spending expense
+# name of the category [food, clothing, transport, entertainment, groceries, bills, miscellaneous, spending(Include for budget)]
 class Tag(db.Model):
     __tablename__ = 'tag'
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String, nullable = False)
-    entries = db.relationship('Entry', secondary = tag_table, back_populates='tags')
+    entries = db.relationship('Expense', secondary = tag_table, back_populates='tags')
 
     def __init__(self, **kwargs):
         self.name = kwargs.get('name', '')
@@ -136,25 +130,29 @@ class Tag(db.Model):
         }
 
 
-# including the goal in your monthly spending tracking
-class Goal(db.Model):
-    __tablename__ = 'goal'
+# including the budget in your monthly spending tracking
+class Budget(db.Model):
+    __tablename__ = 'budget'
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String, nullable = False)
     limit = db.Column(db.Integer, nullable = False)         #your limit for the month
     length = db.Column(db.Integer, nullable = False)        #Default: Month; [week, month, year]
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
 
+    # A budget has 1 tag
+    tag_id = db.Column(db.Integer, nullable = False)
+
     def __init__(self, **kwargs):
         self.title = kwargs.get('title', '')
-        self.limit = kwargs.get('limit', '')
-        self.length = kwargs.get('length', '')
-        self.user_id = kwargs.get('user_id', '')
+        self.limit = kwargs.get('limit', 0)
+        self.length = kwargs.get('length', 0)
+        self.user_id = kwargs.get('user_id', 0)
+        self.tag_id = kwards.get('tag_id', 0)
 
     def serialize(self):
         return{
             'id': self.id,
             'title': self.title,
             'limit': self.limit,
-            'length': self.length
+            'tag_id': self.tag_id
         }
