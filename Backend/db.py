@@ -56,8 +56,8 @@ class User(db.Model):
             'firstName': self.firstName,
             'lastName': self.lastName,
             'email': self.email,
-            'expenses': [s.serialize() for s in self.entries],
-            'budgets': [s.serialize() for s in self.budgets],
+            'expenses': [s.serialize() for s in self.expenses],
+            'budgets': [s.serialize() for s in self.budgets]
         }
 
     # Used to randomly generate session/update tokens
@@ -147,7 +147,7 @@ class Budget(db.Model):
         self.limit = kwargs.get('limit', 0)
         self.length = kwargs.get('length', 0)
         self.user_id = kwargs.get('user_id', 0)
-        self.tag_id = kwards.get('tag_id', 0)
+        self.tag_id = kwargs.get('tag_id', 0)
 
     def serialize(self):
         return{

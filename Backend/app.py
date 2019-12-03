@@ -56,10 +56,11 @@ def delete_user(user_id):
 
 
 # create budget for a category -- double check how i added tag
+#might want to change it to post body
 @app.route('/api/budget/<int:user_id>/<int:tag_id>/', methods=['POST'])
 def create_budget(user_id, tag_id):
     user = User.query.filter_by(id=user_id).first()
-    tag = Tag.query.get(id=tag_id)
+    tag = Tag.query.filter_by(id=tag_id).first()
     #user = User.query.get(user_id)
     if not user:
         return json.dumps({'success': False, 'error': 'User not found!'}), 404
@@ -82,10 +83,23 @@ def create_budget(user_id, tag_id):
     db.session.commit()
     return json.dumps({'success': True, 'data': budget.serialize()}), 201
 
+@app.route('/api/budgets/', methods=['GET'])
+def get_budgets():
+    budgets = Budget.query.all()
+    res = {'success': True, 'data': [b.serialize() for b in budgets]}
+    return json.dumps(res), 200
+
+@app.route('/api/budget/<int:budget_id>/', methods=['GET'])
+def get_budget(budget_id):
+    budget = Budget.query.filter_by(id=budget_id).first()
+    if not budget:
+        return json.dumps({'success': False, 'error': 'Budget not found!'}), 404
+    return json.dumps({'success': True, 'data': budget.serialize()}), 200
+
 # Edit Budget
 @app.route('/api/budget/<int:budget_id>/', methods=['POST'])
 def edit_budget(budget_id):
-    budget = Budget.query.get(id=budget_id)
+    budget = Budget.query.filter_by(id=budget_id).first()
     if not budget:
         return json.dumps({'success': False, 'error': 'Budget not found!'}), 404
 
@@ -101,13 +115,14 @@ def edit_budget(budget_id):
 # Delete budget
 @app.route('/api/budget/<int:budget_id>/', methods=['DELETE'])
 def delete_budget(budget_id):
-    budget = Budget.query.get(id=budget_id)
+    budget = Budget.query.filter_by(id=budget_id).first()
     if not budget:
         return json.dumps({'success': False, 'error': 'Budget not found!'}), 404
 
     db.session.delete(budget)
     db.session.commit()
     return json.dumps({'success': True, 'data': budget.serialize()}), 201
+
 
 # Add/Log Expense
 @app.route('/api/expense/<int:user_id>/', methods=['POST'])
@@ -136,9 +151,9 @@ def create_expense(user_id):
     return json.dumps({'success': True, 'data': expense.serialize()}), 201
 
 # Edit EXPENSE
-@app.route('/api/expense/<int:expense_id>/', methods=['POST'])
+@app.route('/api/expense/edit/<int:expense_id>/', methods=['POST'])
 def edit_expense(expense_id):
-    expense = Expense.query.get(id=expense_id)
+    expense = Expense.query.filter_by(id=expense_id).first()
     if not expense:
         return json.dumps({'success': False, 'error': 'Expense not found!'}), 404
 
@@ -149,12 +164,12 @@ def edit_expense(expense_id):
     expense.date = post_body.get('date', '')
 
     db.session.commit()
-    return json.dumps({'success': True, 'data': budget.serialize()}), 200
+    return json.dumps({'success': True, 'data': expense.serialize()}), 200
 
 # delete EXPENSE
 @app.route('/api/expense/<int:expense_id>/', methods=['DELETE'])
 def delete_expense(expense_id):
-    expense = Expense.query.get(id=expense_id)
+    expense = Expense.query.filter_by(id=expense_id).first()
     if not expense:
         return json.dumps({'success': False, 'error': 'Expense not found!'}), 404
 
@@ -171,9 +186,23 @@ def get_users_expenses(user_id):
     if not user:
         return json.dumps({'success': False, 'error': 'User not found!'}), 404
 
-    expenses = User.expenses.query.all()
+    expenses = user.expenses
     res = {'success': True, 'data': [e.serialize() for e in expenses]}
     return json.dumps(res), 200
+
+#TAG
+@app.route('/api/tag/', methods=['POST'])
+def create_tag():
+    post_body = json.loads(request.data)
+    name = post_body.get('name', '')
+
+    tag = Tag(
+        name = name
+    )
+
+    db.session.add(tag)
+    db.session.commit()
+    return json.dumps({'success': True, 'data': tag.serialize()}), 201
 
 # all expenses by category
 # probably a simpler way to do this with tables
