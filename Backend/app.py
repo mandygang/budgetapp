@@ -57,10 +57,10 @@ def delete_user(user_id):
 
 # create budget for a category -- double check how i added tag
 #might want to change it to post body
-@app.route('/api/budget/<int:user_id>/<int:tag_id>/', methods=['POST'])
+@app.route('/api/budget/<int:user_id>/', methods=['POST'])
 def create_budget(user_id, tag_id):
     user = User.query.filter_by(id=user_id).first()
-    tag = Tag.query.filter_by(id=tag_id).first()
+    #tag = Tag.query.filter_by(id=tag_id).first()
     #user = User.query.get(user_id)
     if not user:
         return json.dumps({'success': False, 'error': 'User not found!'}), 404
@@ -69,6 +69,7 @@ def create_budget(user_id, tag_id):
     title = post_body.get('title', '')
     limit = post_body.get('limit', 0)
     length = post_body.get('length', 0)
+    tag = post_body.get('tag', '')
 
     budget = Budget(
         title = title,
@@ -96,8 +97,17 @@ def get_budget(budget_id):
         return json.dumps({'success': False, 'error': 'Budget not found!'}), 404
     return json.dumps({'success': True, 'data': budget.serialize()}), 200
 
+@app.route('/api/budget/<int:user_id>/<int:tag_id>/', methods=['GET'])
+def get_budget_by_tag(user_id, tag_id):
+    user = User.query.filter_by(id=user_id).first()
+    budgets = user.budgets
+    for b in budgets:
+        if b.tag_id == tag_id:
+            return json.dumps({'success': True, 'data': b.serialize()}), 200
+    return json.dumps({'success': False, 'error': 'Budget not found!'}), 404
+
 # Edit Budget
-@app.route('/api/budget/<int:budget_id>/', methods=['POST'])
+@app.route('/api/budget/edit/<int:budget_id>/', methods=['POST'])
 def edit_budget(budget_id):
     budget = Budget.query.filter_by(id=budget_id).first()
     if not budget:
@@ -203,6 +213,22 @@ def create_tag():
     db.session.add(tag)
     db.session.commit()
     return json.dumps({'success': True, 'data': tag.serialize()}), 201
+
+"""@app.route('/api/expenses/<int:user_id>/<int:tag_id>/', methods=['GET'])
+def get_expenses_by_tag(user_id, tag_id):
+    user = User.query.filter_by(id=user_id).first()
+    #user = User.query.get(user_id)
+    if not user:
+        return json.dumps({'success': False, 'error': 'User not found!'}), 404
+
+    expenses = user.expenses
+    right_expenses = []
+    for e in expenses:
+        print(e.tags)
+        if tag_id in e.tags:
+            res = {'success': True, 'data': [e.serialize() for e in expenses]}
+            return json.dumps(res), 200
+    return json.dumps({'success': False, 'error': 'Budget not found!'}), 404"""
 
 # all expenses by category
 # probably a simpler way to do this with tables
