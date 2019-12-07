@@ -147,6 +147,7 @@ def create_expense(user_id):
     amount = post_body.get('amount', 0.0)
     description = post_body.get('description', '')
     date = post_body.get('date', '')
+    tags = post_body.get('tags', [])
 
     expense = Expense(
         title = title,
@@ -154,6 +155,8 @@ def create_expense(user_id):
         description = description,
         date = date,
     )
+    for tag in tags:
+        expense.tags.append(Tag.query.filter_by(id=tag).first())
 
     user.expenses.append(expense)
     db.session.add(expense)
@@ -172,6 +175,11 @@ def edit_expense(expense_id):
     expense.amount = post_body.get('amount', 0.0)
     expense.description = post_body.get('description', '')
     expense.date = post_body.get('date', '')
+    tags = post_body.get('tags',[])
+    new_tags = []
+    for tag in tags:
+        new_tags.append(Tag.query.filter_by(id=tag).first())
+    expense.tags = new_tags
 
     db.session.commit()
     return json.dumps({'success': True, 'data': expense.serialize()}), 200
@@ -214,7 +222,7 @@ def create_tag():
     db.session.commit()
     return json.dumps({'success': True, 'data': tag.serialize()}), 201
 
-"""@app.route('/api/expenses/<int:user_id>/<int:tag_id>/', methods=['GET'])
+@app.route('/api/expenses/<int:user_id>/<int:tag_id>/', methods=['GET'])
 def get_expenses_by_tag(user_id, tag_id):
     user = User.query.filter_by(id=user_id).first()
     #user = User.query.get(user_id)
@@ -224,11 +232,14 @@ def get_expenses_by_tag(user_id, tag_id):
     expenses = user.expenses
     right_expenses = []
     for e in expenses:
-        print(e.tags)
-        if tag_id in e.tags:
-            res = {'success': True, 'data': [e.serialize() for e in expenses]}
-            return json.dumps(res), 200
-    return json.dumps({'success': False, 'error': 'Budget not found!'}), 404"""
+        for tags in e.tags:
+            if tags.id == tag_id:
+                right_expenses.append(e.serialize())
+    if len(right_expenses) > 0:
+        res = {'success': True, 'data': right_expenses}
+        return json.dumps(res), 200
+
+    return json.dumps({'success': False, 'error': 'Budget not found!'}), 404
 
 # all expenses by category
 # probably a simpler way to do this with tables

@@ -52,7 +52,7 @@ class User(db.Model):
 
     def serialize(self):
         return {
-            'id': self.id,
+            'user_id': self.id,
             'firstName': self.firstName,
             'lastName': self.lastName,
             'email': self.email,
@@ -104,11 +104,12 @@ class Expense(db.Model):
 
     def serialize(self):
         return {
-            'id': self.id,
+            'expense_id': self.id,
             'title': self.title,
             'amount': self.amount,
             'description': self.description,
-            'date': self.date
+            'date': self.date,
+            'tags': [t.serialize() for t in self.tags]
         }
 
 
@@ -125,7 +126,11 @@ class Tag(db.Model):
 
     def serialize(self):
         return {
-            'id': self.id,
+            'tag_id': self.id,
+            'name': self.name
+        }
+    def serialize2(self):
+        return{
             'name': self.name
         }
 
@@ -151,7 +156,7 @@ class Budget(db.Model):
 
     def serialize(self):
         return{
-            'id': self.id,
+            'budget_id': self.id,
             'title': self.title,
             'limit': self.limit,
             'tag_id': self.tag_id
