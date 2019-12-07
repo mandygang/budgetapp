@@ -1,3 +1,7 @@
+"""
+Application methods to collect and use data
+"""
+
 import json
 from db import db, User, Expense, Tag, Budget
 from flask import Flask, request
@@ -14,8 +18,10 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
-
+#Ray add doc here
 def extract_token(request):
+    """
+    """
     auth_header = request.headers.get("Authorization")
     if not auth_header:
         return False, json.dumps({'error': 'Missing authorization header'})
@@ -26,13 +32,14 @@ def extract_token(request):
     return True, bearer_token
 
 
-# @app.route("/")
-# def hello_world():
-#     return json.dumps({"message": "Hello, World!"})
-
-# Gets all users
 @app.route('/api/users/', methods=["GET"])
 def get_users():
+    """
+    Returns: dictionary with (key) success/failure and (key) list of all users
+    Refer to serialize in db.py to see how users are formatted
+
+    Gets all users
+    """
     users = User.query.all()
     res = {'success': True, 'data': [u.serialize() for u in users]}
     return json.dumps(res), 200
@@ -40,6 +47,14 @@ def get_users():
 # Gets specific user by user_id
 @app.route('/api/user/<int:user_id>/', methods=['GET'])
 def get_user(user_id):
+    """
+    Returns: dictionary with (key) success/failure and (key) user of a specific id
+    Refer to serialize in db.py to see how users are formatted
+
+    Parameter user_id: the id of the specific user that is being returned
+
+    Gets the user by their id
+    """
     user = User.query.filter_by(id=user_id).first()
     if not user:
         return json.dumps({'success': False, 'error': 'User not found!'}), 404
@@ -47,6 +62,14 @@ def get_user(user_id):
 
 @app.route('/api/user/<int:user_id>/', methods=['DELETE'])
 def delete_user(user_id):
+    """
+    Returns: dictionary with (key) success/failure and (key) user of a specific id
+    Refer to serialize in db.py to see how users are formatted
+
+    Parameter user_id: the id of the specific user that is being returned
+
+    Deletes the user by their id
+    """
     user = User.query.get(user_id)
     if not user:
         return json.dumps({'success': False, 'error': 'User not found!'}), 404
@@ -59,18 +82,29 @@ def delete_user(user_id):
 #might want to change it to post body
 @app.route('/api/budget/<int:user_id>/', methods=['POST'])
 def create_budget(user_id, tag_id):
+    """
+    Returns: dictionary with (key) success/failure and (key) the budget created
+    Refer to serialize in db.py to see how budgets are formatted
+
+    Parameter user_id: the id of the specific user that will add this budget to their account
+    Parameter tag_id: the id of the tag that is to be linked to this budget
+
+    Creates a budget for a user with a tag
+    """
     user = User.query.filter_by(id=user_id).first()
     #tag = Tag.query.filter_by(id=tag_id).first()
     #user = User.query.get(user_id)
     if not user:
         return json.dumps({'success': False, 'error': 'User not found!'}), 404
 
+    # grabs data needed to create budget
     post_body = json.loads(request.data)
     title = post_body.get('title', '')
     limit = post_body.get('limit', 0)
     length = post_body.get('length', 0)
     tag = post_body.get('tag', '')
 
+    # creates a budget log
     budget = Budget(
         title = title,
         limit = limit,
@@ -84,21 +118,48 @@ def create_budget(user_id, tag_id):
     db.session.commit()
     return json.dumps({'success': True, 'data': budget.serialize()}), 201
 
+
+# SHOULD WE CHANGE THIS TO BE GET ALL BUDGETS FOR A USER?
 @app.route('/api/budgets/', methods=['GET'])
 def get_budgets():
+    """
+    Returns: dictionary with (key) success/failure and (key) list of all budget
+    Refer to serialize in db.py to see how budgets are formatted
+
+    Gets all budgets created by all users
+    """
     budgets = Budget.query.all()
     res = {'success': True, 'data': [b.serialize() for b in budgets]}
     return json.dumps(res), 200
 
+
 @app.route('/api/budget/<int:budget_id>/', methods=['GET'])
 def get_budget(budget_id):
+    """
+    Returns: dictionary with (key) success/failure and (key) specific budget found by budget_id
+    Refer to serialize in db.py to see how budgets are formatted
+
+    Parameter budget_id: the id of the budget
+
+    Gets a specific budget entry by id
+    """
     budget = Budget.query.filter_by(id=budget_id).first()
     if not budget:
         return json.dumps({'success': False, 'error': 'Budget not found!'}), 404
     return json.dumps({'success': True, 'data': budget.serialize()}), 200
 
+
 @app.route('/api/budget/<int:user_id>/<int:tag_id>/', methods=['GET'])
 def get_budget_by_tag(user_id, tag_id):
+    """
+    Returns: dictionary with (key) success/failure and (key) specific budget found by tag
+    Refer to serialize in db.py to see how budgets are formatted
+
+    Parameter user_id: the id of the specific user that will add this budget to their account
+    Parameter tag_id: the id of the tag that is to be linked to this budget
+
+    Gets a budget related to a tag for a user
+    """
     user = User.query.filter_by(id=user_id).first()
     budgets = user.budgets
     for b in budgets:
@@ -106,9 +167,17 @@ def get_budget_by_tag(user_id, tag_id):
             return json.dumps({'success': True, 'data': b.serialize()}), 200
     return json.dumps({'success': False, 'error': 'Budget not found!'}), 404
 
-# Edit Budget
+
 @app.route('/api/budget/edit/<int:budget_id>/', methods=['POST'])
 def edit_budget(budget_id):
+    """
+    Returns: dictionary with (key) success/failure and (key) specific budget found by budget_id
+    Refer to serialize in db.py to see how budgets are formatted
+
+    Parameter budget_id: the id of the budget
+
+    Edits a specific budget, found by using budget_id
+    """
     budget = Budget.query.filter_by(id=budget_id).first()
     if not budget:
         return json.dumps({'success': False, 'error': 'Budget not found!'}), 404
@@ -122,9 +191,17 @@ def edit_budget(budget_id):
     db.session.commit()
     return json.dumps({'success': True, 'data': budget.serialize()}), 200
 
-# Delete budget
+
 @app.route('/api/budget/<int:budget_id>/', methods=['DELETE'])
 def delete_budget(budget_id):
+    """
+    Returns: dictionary with (key) success/failure and (key) specific budget found by budget_id
+    Refer to serialize in db.py to see how budgets are formatted
+
+    Parameter budget_id: the id of the budget
+
+    Deletes a specific budget, found by using budget_id
+    """
     budget = Budget.query.filter_by(id=budget_id).first()
     if not budget:
         return json.dumps({'success': False, 'error': 'Budget not found!'}), 404
@@ -134,14 +211,22 @@ def delete_budget(budget_id):
     return json.dumps({'success': True, 'data': budget.serialize()}), 201
 
 
-# Add/Log Expense
 @app.route('/api/expense/<int:user_id>/', methods=['POST'])
 def create_expense(user_id):
+    """
+    Returns: dictionary with (key) success/failure and (key) the expense created
+    Refer to serialize in db.py to see how expenses are formatted
+
+    Parameter user_id: the id of the specific user that will add this expense to their account
+
+    Adds an expense to a user's log
+    """
     user = User.query.filter_by(id=user_id).first()
     #user = User.query.get(user_id)
     if not user:
         return json.dumps({'success': False, 'error': 'User not found!'}), 404
 
+    # grabs data needed to create budget
     post_body = json.loads(request.data)
     title = post_body.get('title', '')
     amount = post_body.get('amount', 0.0)
@@ -149,6 +234,7 @@ def create_expense(user_id):
     date = post_body.get('date', '')
     tags = post_body.get('tags', [])
 
+    # creates an expense log
     expense = Expense(
         title = title,
         amount = amount,
@@ -163,9 +249,17 @@ def create_expense(user_id):
     db.session.commit()
     return json.dumps({'success': True, 'data': expense.serialize()}), 201
 
-# Edit EXPENSE
+
 @app.route('/api/expense/edit/<int:expense_id>/', methods=['POST'])
 def edit_expense(expense_id):
+    """
+    Returns: dictionary with (key) success/failure and (key) specific expense found by expense_id
+    Refer to serialize in db.py to see how expenses are formatted
+
+    Parameter expense_id: the id of the budget
+
+    Edits a specific expense, found by using expense_id
+    """
     expense = Expense.query.filter_by(id=expense_id).first()
     if not expense:
         return json.dumps({'success': False, 'error': 'Expense not found!'}), 404
@@ -176,6 +270,8 @@ def edit_expense(expense_id):
     expense.description = post_body.get('description', '')
     expense.date = post_body.get('date', '')
     tags = post_body.get('tags',[])
+
+    #adding new tags to the expense
     new_tags = []
     for tag in tags:
         new_tags.append(Tag.query.filter_by(id=tag).first())
@@ -184,9 +280,17 @@ def edit_expense(expense_id):
     db.session.commit()
     return json.dumps({'success': True, 'data': expense.serialize()}), 200
 
-# delete EXPENSE
+
 @app.route('/api/expense/<int:expense_id>/', methods=['DELETE'])
 def delete_expense(expense_id):
+    """
+    Returns: dictionary with (key) success/failure and (key) specific expense found by expense_id
+    Refer to serialize in db.py to see how expenses are formatted
+
+    Parameter expense_id: the id of the budget
+
+    Deletes a specific expense, found by using expense_id
+    """
     expense = Expense.query.filter_by(id=expense_id).first()
     if not expense:
         return json.dumps({'success': False, 'error': 'Expense not found!'}), 404
@@ -195,10 +299,19 @@ def delete_expense(expense_id):
     db.session.commit()
     return json.dumps({'success': True, 'data': expense.serialize()}), 201
 
-# Get all user's expenses, should be listed by date?
-# Do we need to sort by date?
+
 @app.route('/api/expenses/<int:user_id>/', methods=['GET'])
 def get_users_expenses(user_id):
+    """
+    Returns: dictionary with (key) success/failure and (key) list of all expenses logged by user
+    Refer to serialize in db.py to see how expenses are formatted
+
+    The expenses are sorted by ____________________ date?
+
+    Parameter user_id: the id of the user
+
+    Gets all the user's expenses
+    """
     user = User.query.filter_by(id=user_id).first()
     #user = User.query.get(user_id)
     if not user:
@@ -208,9 +321,17 @@ def get_users_expenses(user_id):
     res = {'success': True, 'data': [e.serialize() for e in expenses]}
     return json.dumps(res), 200
 
+
 #TAG
+# We should probably include a way to make sure the tag doesnt already exist/add default
 @app.route('/api/tag/', methods=['POST'])
 def create_tag():
+    """
+    Returns: dictionary with (key) success/failure and (key) the tag created
+    Refer to serialize in db.py to see how tags are formatted
+
+    Creates a tag
+    """
     post_body = json.loads(request.data)
     name = post_body.get('name', '')
 
@@ -224,6 +345,15 @@ def create_tag():
 
 @app.route('/api/expenses/<int:user_id>/<int:tag_id>/', methods=['GET'])
 def get_expenses_by_tag(user_id, tag_id):
+    """
+    Returns: dictionary with (key) success/failure and (key) list of expenses related to the tag
+    Refer to serialize in db.py to see how expenses are formatted
+
+    Parameter user_id: the id of the user
+    Parameter tag_id: the id of the tag
+
+    Gets all expenses from a user in a specific tag
+    """
     user = User.query.filter_by(id=user_id).first()
     #user = User.query.get(user_id)
     if not user:
