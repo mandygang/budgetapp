@@ -18,10 +18,8 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
-#Ray add doc here
+
 def extract_token(request):
-    """
-    """
     auth_header = request.headers.get("Authorization")
     if not auth_header:
         return False, json.dumps({'error': 'Missing authorization header'})
@@ -306,7 +304,7 @@ def get_users_expenses(user_id):
     Returns: dictionary with (key) success/failure and (key) list of all expenses logged by user
     Refer to serialize in db.py to see how expenses are formatted
 
-    The expenses are sorted by ____________________ date?
+    The expenses are sorted by date of entry
 
     Parameter user_id: the id of the user
 
