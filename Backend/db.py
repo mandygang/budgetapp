@@ -179,9 +179,7 @@ class Budget(db.Model):
 
     INSTANCE ATTRIBUTES:
         id:
-        title:          name of the budget
         limit:          The cap on the amount of money the user wants in spend
-        length:         The time frame in which the budget is active, Default: Month [week, month, year]
         user_id:        Links the budget to one user
         tag_id:         Links the budget to a tag
     """
@@ -189,9 +187,7 @@ class Budget(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     #title = db.Column(db.String, nullable = False)
     limit = db.Column(db.Integer, nullable = False)
-    length = db.Column(db.Integer, nullable = False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
-
     tag_id = db.Column(db.Integer, nullable = False)
 
     def __init__(self, **kwargs):
@@ -200,7 +196,6 @@ class Budget(db.Model):
         """
         #self.title = kwargs.get('title', '')
         self.limit = kwargs.get('limit', 0)
-        self.length = kwargs.get('length', 0)
         self.user_id = kwargs.get('user_id', 0)
         self.tag_id = kwargs.get('tag_id', 0)
 
