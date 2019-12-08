@@ -58,6 +58,24 @@ def get_user(user_id):
         return json.dumps({'success': False, 'error': 'User not found!'}), 404
     return json.dumps({'success': True, 'data': user.serialize()}), 200
 
+
+@app.route('/api/user/<String:email>/', methods=['GET'])
+def get_user_email(email):
+    """
+    Returns: dictionary with (key) success/failure and (key) user of a specific email
+    Refer to serialize in db.py to see how users are formatted
+
+    Parameter email: string email of the user
+
+    Gets the user by their email
+    """
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        return json.dumps({'success': False, 'error': 'User not found!'}), 404
+    return json.dumps({'success': True, 'data': user.serialize()}), 200
+
+
+
 @app.route('/api/user/<int:user_id>/', methods=['DELETE'])
 def delete_user(user_id):
     """
@@ -76,9 +94,8 @@ def delete_user(user_id):
     return json.dumps({'success': True, 'data': user.serialize()}), 201
 
 
-# create budget for a category -- double check how i added tag
-#might want to change it to post body
-@app.route('/api/budget/<int:user_id>/', methods=['POST'])
+#Changed the route and how the tag is set
+@app.route('/api/budget/<int:user_id>/<int:tag_id>/', methods=['POST'])
 def create_budget(user_id, tag_id):
     """
     Returns: dictionary with (key) success/failure and (key) the budget created
@@ -90,8 +107,6 @@ def create_budget(user_id, tag_id):
     Creates a budget for a user with a tag
     """
     user = User.query.filter_by(id=user_id).first()
-    #tag = Tag.query.filter_by(id=tag_id).first()
-    #user = User.query.get(user_id)
     if not user:
         return json.dumps({'success': False, 'error': 'User not found!'}), 404
 
@@ -100,7 +115,6 @@ def create_budget(user_id, tag_id):
     title = post_body.get('title', '')
     limit = post_body.get('limit', 0)
     length = post_body.get('length', 0)
-    tag = post_body.get('tag', '')
 
     # creates a budget log
     budget = Budget(
@@ -117,20 +131,26 @@ def create_budget(user_id, tag_id):
     return json.dumps({'success': True, 'data': budget.serialize()}), 201
 
 
-# SHOULD WE CHANGE THIS TO BE GET ALL BUDGETS FOR A USER?
-@app.route('/api/budgets/', methods=['GET'])
-def get_budgets():
+# changed to get all budgets for a user
+@app.route('/api/budgets/<int:user_id>/', methods=['GET'])
+def get_budgets(user_id):
     """
     Returns: dictionary with (key) success/failure and (key) list of all budget
     Refer to serialize in db.py to see how budgets are formatted
 
     Gets all budgets created by all users
     """
-    budgets = Budget.query.all()
+    user = User.query.filter_by(id=user_id).first()
+    if not user:
+        return json.dumps({'success': False, 'error': 'User not found!'}), 404
+
+    budgets = user.budgets
+
     res = {'success': True, 'data': [b.serialize() for b in budgets]}
     return json.dumps(res), 200
 
 
+#Not that useful
 @app.route('/api/budget/<int:budget_id>/', methods=['GET'])
 def get_budget(budget_id):
     """
@@ -209,13 +229,14 @@ def delete_budget(budget_id):
     return json.dumps({'success': True, 'data': budget.serialize()}), 201
 
 
-@app.route('/api/expense/<int:user_id>/', methods=['POST'])
-def create_expense(user_id):
+@app.route('/api/expense/<int:user_id>/<int:tag_id>/', methods=['POST'])
+def create_expense(user_id, tag_id):
     """
     Returns: dictionary with (key) success/failure and (key) the expense created
     Refer to serialize in db.py to see how expenses are formatted
 
     Parameter user_id: the id of the specific user that will add this expense to their account
+    Parameter tag_id: the id of the tag that is to be linked to this expense
 
     Adds an expense to a user's log
     """
@@ -230,7 +251,7 @@ def create_expense(user_id):
     amount = post_body.get('amount', 0.0)
     description = post_body.get('description', '')
     date = post_body.get('date', '')
-    tags = post_body.get('tags', [])
+    #tag = post_body.get('tag', 0)
 
     # creates an expense log
     expense = Expense(
@@ -238,9 +259,10 @@ def create_expense(user_id):
         amount = amount,
         description = description,
         date = date,
+        tag_id = tag_id
     )
-    for tag in tags:
-        expense.tags.append(Tag.query.filter_by(id=tag).first())
+    # for tag in tags:
+    #     expense.tags.append(Tag.query.filter_by(id=tag).first())
 
     user.expenses.append(expense)
     db.session.add(expense)
@@ -267,13 +289,13 @@ def edit_expense(expense_id):
     expense.amount = post_body.get('amount', 0.0)
     expense.description = post_body.get('description', '')
     expense.date = post_body.get('date', '')
-    tags = post_body.get('tags',[])
+    expense.tag_id = post_body.get('tag', 0)
 
     #adding new tags to the expense
-    new_tags = []
-    for tag in tags:
-        new_tags.append(Tag.query.filter_by(id=tag).first())
-    expense.tags = new_tags
+    # new_tags = []
+    # for tag in tags:
+    #     new_tags.append(Tag.query.filter_by(id=tag).first())
+    # expense.tags = new_tags
 
     db.session.commit()
     return json.dumps({'success': True, 'data': expense.serialize()}), 200
@@ -304,7 +326,7 @@ def get_users_expenses(user_id):
     Returns: dictionary with (key) success/failure and (key) list of all expenses logged by user
     Refer to serialize in db.py to see how expenses are formatted
 
-    The expenses are sorted by date of entry
+    The expenses are sorted by date of entry?
 
     Parameter user_id: the id of the user
 
@@ -320,27 +342,7 @@ def get_users_expenses(user_id):
     return json.dumps(res), 200
 
 
-#TAG
-# We should probably include a way to make sure the tag doesnt already exist/add default
-@app.route('/api/tag/', methods=['POST'])
-def create_tag():
-    """
-    Returns: dictionary with (key) success/failure and (key) the tag created
-    Refer to serialize in db.py to see how tags are formatted
-
-    Creates a tag
-    """
-    post_body = json.loads(request.data)
-    name = post_body.get('name', '')
-
-    tag = Tag(
-        name = name
-    )
-
-    db.session.add(tag)
-    db.session.commit()
-    return json.dumps({'success': True, 'data': tag.serialize()}), 201
-
+#Double check the way expenses are added
 @app.route('/api/expenses/<int:user_id>/<int:tag_id>/', methods=['GET'])
 def get_expenses_by_tag(user_id, tag_id):
     """
@@ -360,14 +362,35 @@ def get_expenses_by_tag(user_id, tag_id):
     expenses = user.expenses
     right_expenses = []
     for e in expenses:
-        for tags in e.tags:
-            if tags.id == tag_id:
-                right_expenses.append(e.serialize())
+        if e.tag_id == tag_id:
+            right_expenses.append(e.serialize())
     if len(right_expenses) > 0:
         res = {'success': True, 'data': right_expenses}
         return json.dumps(res), 200
 
     return json.dumps({'success': False, 'error': 'Budget not found!'}), 404
+
+#TAG
+# We should probably include a way to make sure the tag doesnt already exist/add default
+# @app.route('/api/tag/', methods=['POST'])
+# def create_tag():
+#     """
+#     Returns: dictionary with (key) success/failure and (key) the tag created
+#     Refer to serialize in db.py to see how tags are formatted
+#
+#     Creates a tag
+#     """
+#     post_body = json.loads(request.data)
+#     name = post_body.get('name', '')
+#
+#     tag = Tag(
+#         name = name
+#     )
+#
+#     db.session.add(tag)
+#     db.session.commit()
+#     return json.dumps({'success': True, 'data': tag.serialize()}), 201
+
 
 # all expenses by category
 # probably a simpler way to do this with tables
@@ -385,69 +408,6 @@ def get_expenses_by_tag(user_id, tag_id):
 # get total spending by Category
 # EXTRA: add category
 # Birdy Quotes/Homescreen message display
-
-
-
-
-# @app.route('/api/courses/', methods=['POST'])
-# def create_course():
-#     post_body = json.loads(request.data)
-#     code = post_body.get('code', '')
-#     name = post_body.get('name', '')
-#     course = Course(
-#         code = code,
-#         name = name
-#     )
-#     db.session.add(course)
-#     db.session.commit()
-#     return json.dumps({'success': True, 'data': course.serialize()}), 201
-#
-# @app.route('/api/course/<int:course_id>/')
-# def get_course(course_id):
-#     course = Course.query.filter_by(id=course_id).first()
-#     if not course:
-#         return json.dumps({'success': False, 'error': 'Course not found!'}), 404
-#     return json.dumps({'success': True, 'data': course.serialize()}), 200
-#
-#
-# @app.route('/api/course/<int:course_id>/add/', methods=['POST'])
-# def add_user(course_id):
-#     post_body = json.loads(request.data)
-#     type = post_body.get('type', '')
-#     user_id = post_body.get('user_id', '')
-#     user = User.query.filter_by(id=user_id).first()
-#     course = Course.query.filter_by(id=course_id).first()
-#     if not course:
-#         return json.dumps({'success': False, 'error': 'Course not found!'}), 404
-#     if type == "instructor":
-#         course.instructors.append(user)
-#     elif type == "student":
-#         course.students.append(user)
-#     else:
-#         return json.dumps({'success': False, 'error': 'Pick a valid job'}), 404
-#     db.session.add(user)
-#     db.session.commit()
-#     return json.dumps({'success': True, 'data': course.serialize()}), 200
-#
-# @app.route('/api/course/<int:course_id>/assignment/', methods=['POST'])
-# def create_assignment(course_id):
-#     post_body = json.loads(request.data)
-#     title = post_body.get('title', '')
-#     due_date = post_body.get('due_date', '')
-#     course = Course.query.filter_by(id=course_id).first()
-#     if not course:
-#         return json.dumps({'success': False, 'error': 'Assignment not found!'}), 404
-#     assignment = Assignment(
-#         title = title,
-#         due_date = due_date,
-#         course_id = course_id
-#     )
-#     course.assignments.append(assignment)
-#     db.session.add(assignment)
-#     db.session.commit()
-#     result = assignment.serialize()
-#     result['course'] = course.serialize2()
-#     return json.dumps({'success': True, 'data': result}), 200
 
 
 # ================================ Account Routes ================================

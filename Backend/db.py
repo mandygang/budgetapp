@@ -16,10 +16,10 @@ db = SQLAlchemy()
 #                     db.Column('expense_id', db.Integer, db.ForeignKey('expense.id')),
 #                     db.Column('budget_id', db.Integer, db.ForeignKey('budget.id'))
 #                     )
-tag_table = db.Table('tags', db.Model.metadata,
-                    db.Column('tag_id', db.Integer,db.ForeignKey('tag.id')),
-                    db.Column('expense_id', db.Integer,db.ForeignKey('expense.id'))
-                    )
+# tag_table = db.Table('tags', db.Model.metadata,
+#                     db.Column('tag_id', db.Integer,db.ForeignKey('tag.id')),
+#                     db.Column('expense_id', db.Integer,db.ForeignKey('expense.id'))
+#                     )
 
 class User(db.Model):
     """
@@ -127,7 +127,7 @@ class Expense(db.Model):
         description:    (Optional) Details about the expense logged (i.e. where/why was the purchase made?)
         date:           Date of when the purchase was made, for organization and display
         user_id:        Links the expenses to one user
-        tags:           List of related tags to the expense
+        tag_id:         Category/type of expense, int that refers to an list of set tags
     """
 
     __tablename__ = 'expense'
@@ -138,7 +138,8 @@ class Expense(db.Model):
     date = db.Column(db.Integer, nullable = False)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
-    tags = db.relationship('Tag', secondary = tag_table, back_populates='entries')
+    tag_id = db.Column(db.Integer, nullable = False)
+    #tags = db.relationship('Tag', secondary = tag_table, back_populates='entries')
 
     def __init__(self, **kwargs):
         """
@@ -149,6 +150,7 @@ class Expense(db.Model):
         self.description = kwargs.get('description', '')
         self.date = kwargs.get('date', '')
         self.user_id = kwargs.get('user_id', 0)
+        self.tag_id = kwargs.get('user_id', 0)
 
     def serialize(self):
         """
@@ -160,48 +162,7 @@ class Expense(db.Model):
             'amount': self.amount,
             'description': self.description,
             'date': self.date,
-            'tags': [t.serialize() for t in self.tags]
-        }
-
-
-# Optional decision to include the tag in your spending expense
-# name of the category [food, clothing, transport, entertainment, groceries,
-#                           bills, miscellaneous, spending(Include for budget)]
-class Tag(db.Model):
-    """
-    This class contains details for a tag that describes and categories the type of
-    expense made
-
-    INSTANCE ATTRIBUTES:
-        id:
-        name:       Title of the tag
-        entries:    List of all expenses logged by a user related to the tag
-    """
-    __tablename__ = 'tag'
-    id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String, nullable = False)
-    entries = db.relationship('Expense', secondary = tag_table, back_populates='tags')
-
-    def __init__(self, **kwargs):
-        """
-        Initializes a tag
-        """
-        self.name = kwargs.get('name', '')
-
-    def serialize(self):
-        """
-        Formats the return dictionary layout for a tag with its id
-        """
-        return {
-            'tag_id': self.id,
-            'name': self.name
-        }
-    def serialize2(self):
-        """
-        Formats the return dictionary layout for a tag, just name
-        """
-        return{
-            'name': self.name
+            'tag': self.tag_id
         }
 
 
@@ -253,3 +214,44 @@ class Budget(db.Model):
             'limit': self.limit,
             'tag_id': self.tag_id
         }
+
+
+# Optional decision to include the tag in your spending expense
+# name of the category [food, clothing, transport, entertainment, groceries,
+#                           bills, miscellaneous, spending(Include for budget)]
+# class Tag(db.Model):
+#     """
+#     This class contains details for a tag that describes and categories the type of
+#     expense made
+#
+#     INSTANCE ATTRIBUTES:
+#         id:
+#         name:       Title of the tag
+#         entries:    List of all expenses logged by a user related to the tag
+#     """
+#     __tablename__ = 'tag'
+#     id = db.Column(db.Integer, primary_key = True)
+#     name = db.Column(db.String, nullable = False)
+#     entries = db.relationship('Expense', secondary = tag_table, back_populates='tags')
+#
+#     def __init__(self, **kwargs):
+#         """
+#         Initializes a tag
+#         """
+#         self.name = kwargs.get('name', '')
+#
+#     def serialize(self):
+#         """
+#         Formats the return dictionary layout for a tag with its id
+#         """
+#         return {
+#             'tag_id': self.id,
+#             'name': self.name
+#         }
+#     def serialize2(self):
+#         """
+#         Formats the return dictionary layout for a tag, just name
+#         """
+#         return{
+#             'name': self.name
+#         }
