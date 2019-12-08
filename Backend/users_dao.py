@@ -22,12 +22,12 @@ def verify_credentials(email, password):
     return optional_user.verify_password(password), optional_user
 
 
-def create_user(email, password):
+def create_user(email, password, first_name, last_name):
     optional_user = get_user_by_email(email)
     if optional_user:
         return False, optional_user
 
-    user = User(email = email, password = password)
+    user = User(email = email, password = password, firstName = first_name, lastName = last_name)
 
     db.session.add(user)
     db.session.commit()

@@ -456,11 +456,13 @@ def register_account():
     post_body = json.loads(request.data)
     email = post_body.get('email')
     password = post_body.get('password')
+    first_name = post_body.get('first_name')
+    last_name = post_body.get('last_name')
 
     if not email or not password:
         return json.dumps({'error': 'missing email or password.'})
 
-    created, user = users_dao.create_user(email, password)
+    created, user = users_dao.create_user(email, password, first_name, last_name)
 
     if not created:
         return json.dumps({'error': 'User already exists.'})
