@@ -185,6 +185,7 @@ class Budget(db.Model):
     """
     __tablename__ = 'budget'
     id = db.Column(db.Integer, primary_key = True)
+    #title = db.Column(db.String, nullable = False)
     limit = db.Column(db.Integer, nullable = False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
     tag_id = db.Column(db.Integer, nullable = False)
@@ -193,6 +194,7 @@ class Budget(db.Model):
         """
         Initializes a tag
         """
+        #self.title = kwargs.get('title', '')
         self.limit = kwargs.get('limit', 0)
         self.user_id = kwargs.get('user_id', 0)
         self.tag_id = kwargs.get('tag_id', 0)
@@ -203,6 +205,7 @@ class Budget(db.Model):
         """
         return{
             'budget_id': self.id,
+            #'title': self.title,
             'limit': self.limit,
             'tag_id': self.tag_id
         }
