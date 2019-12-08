@@ -150,7 +150,7 @@ class Expense(db.Model):
         self.description = kwargs.get('description', '')
         self.date = kwargs.get('date', '')
         self.user_id = kwargs.get('user_id', 0)
-        self.tag_id = kwargs.get('user_id', 0)
+        self.tag_id = kwargs.get('tag_id', 0)
 
     def serialize(self):
         """
