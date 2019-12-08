@@ -112,13 +112,13 @@ def create_budget(user_id, tag_id):
 
     # grabs data needed to create budget
     post_body = json.loads(request.data)
-    title = post_body.get('title', '')
+    #title = post_body.get('title', '')
     limit = post_body.get('limit', 0)
     length = post_body.get('length', 0)
 
     # creates a budget log
     budget = Budget(
-        title = title,
+        #title = title,
         limit = limit,
         length = length,
         user_id = user_id,
@@ -201,7 +201,7 @@ def edit_budget(budget_id):
         return json.dumps({'success': False, 'error': 'Budget not found!'}), 404
 
     post_body = json.loads(request.data)
-    budget.title = post_body.get('title', '')
+    #budget.title = post_body.get('title', '')
     budget.limit = post_body.get('limit', 0)
     budget.length = post_body.get('length', 0)
     budget.tag_id = post_body.get('tag_id', 0)
