@@ -3,7 +3,7 @@ Application methods to collect and use data
 """
 
 import json
-from db import db, User, Expense, Tag, Budget
+from db import db, User, Expense, Budget
 from flask import Flask, request
 import users_dao
 
@@ -59,7 +59,7 @@ def get_user(user_id):
     return json.dumps({'success': True, 'data': user.serialize()}), 200
 
 
-@app.route('/api/user/<String:email>/', methods=['GET'])
+@app.route('/api/user/<string:email>/', methods=['GET'])
 def get_user_email(email):
     """
     Returns: dictionary with (key) success/failure and (key) user of a specific email
