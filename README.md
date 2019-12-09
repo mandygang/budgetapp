@@ -6,7 +6,7 @@
 Only one repo used 
 
 ## A Look at the App
-![](Screenshots.png)
+![](Screenshots/Screenshots.png)
 (Find individual photos in screenshots folder)
 
 ## About the App
