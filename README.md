@@ -46,6 +46,12 @@ Frontend-wise, Janice used a Cocoa-pod to create the circular progress wheel tha
 There are many features that we brainstormed for this app that were not implemented due to time-constraints so please take a look at the prototypes and screens in the Screens folder that our designer made to get a glimpse of our app at its full potential!
 
 
+## The Team<3
+Backend: Mandy Gang, Ray Weng
+
+iOS: Janice Jung
+
+Design: Emily Jacobsson
 
 
 
