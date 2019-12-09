@@ -6,6 +6,7 @@
 Only one repo used 
 
 ## A Look at the App
+![](Screenshots.png)
 
 ## About the App
 ### The Problem We're Tackling 
