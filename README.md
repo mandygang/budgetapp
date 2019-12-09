@@ -7,7 +7,7 @@ Only one repo used
 
 ## A Look at the App
 ![](Screenshots.png)
-(Find individual screenshots in screens folder)
+(Find individual photos in screenshoots folder)
 
 ## About the App
 ### The Problem We're Tackling 
