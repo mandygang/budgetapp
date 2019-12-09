@@ -244,7 +244,7 @@ extension ExpensesLogViewController: UICollectionViewDelegateFlowLayout {
        
 //        if collectionView == expenseCollectionView {
             let width = collectionView.frame.width
-            return CGSize(width: width, height: 200)
+            return CGSize(width: width, height: 120)
 //        } else {
 //            let label = UILabel(frame: CGRect.zero)
 //            label.text = categories[indexPath.row]

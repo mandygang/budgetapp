@@ -9,6 +9,7 @@
 import UIKit
 
 class ExpenseCollectionViewCell: UICollectionViewCell {
+    var titleLabel: UILabel!
     var categoryLabel: UILabel!
     var amountLabel: UILabel!
     var noteLabel: UILabel!
@@ -21,24 +22,31 @@ class ExpenseCollectionViewCell: UICollectionViewCell {
         //edit corner radius
         layer.cornerRadius = 50
         
+
         amountLabel = UILabel()
-        amountLabel.font = UIFont.systemFont(ofSize: 15)
+        amountLabel.font = .systemFont(ofSize: 22, weight: .bold)
         amountLabel.sizeToFit()
         amountLabel.textColor = .accentGreen
         amountLabel.backgroundColor = .clear
         contentView.addSubview(amountLabel)
         
-        categoryLabel = UILabel()
-        categoryLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        categoryLabel.sizeToFit()
-        categoryLabel.textColor = .black
-        contentView.addSubview(categoryLabel)
+        titleLabel = UILabel()
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 22)
+        titleLabel.sizeToFit()
+        titleLabel.textColor = .black
+        contentView.addSubview(titleLabel)
         
         noteLabel = UILabel()
-        noteLabel.font = UIFont.boldSystemFont(ofSize: 10)
+        noteLabel.font = .systemFont(ofSize: 15, weight: .medium)
         noteLabel.sizeToFit()
-        noteLabel.textColor = .gray
+        noteLabel.textColor = .meta
         contentView.addSubview(noteLabel)
+        
+        categoryLabel = UILabel()
+        categoryLabel.font = .systemFont(ofSize: 15, weight: .medium)
+        categoryLabel.sizeToFit()
+        categoryLabel.textColor = .secondary
+        contentView.addSubview(categoryLabel)
         
         setupConstraints()
         
@@ -49,25 +57,33 @@ class ExpenseCollectionViewCell: UICollectionViewCell {
     }
     
     func setupConstraints() {
-        categoryLabel.snp.makeConstraints { make in
-            make.top.left.equalTo(contentView).offset(40)
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(contentView).offset(25)
+            make.leading.equalTo(contentView).offset(35)
         }
         
         amountLabel.snp.makeConstraints { make in
-            make.left.equalTo(categoryLabel)
-            make.top.equalTo(categoryLabel.snp.bottom).offset(40)
+            make.trailing.equalTo(self).offset(-40)
+            make.centerY.equalTo(contentView)
+        }
+        
+        categoryLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(10)
+            make.left.equalTo(titleLabel)
         }
         
         noteLabel.snp.makeConstraints { make in
-            make.top.equalTo(amountLabel.snp.bottom)
-            make.left.equalTo(categoryLabel)
+            make.top.equalTo(categoryLabel.snp.bottom)
+            make.left.equalTo(titleLabel)
         }
     }
     
     func configure(for expense: Expense) {
         categoryLabel.text = Statics.categories[expense.tag]
-        amountLabel.text = String(expense.amount)
+        amountLabel.text = "$" + String(expense.amount)
         noteLabel.text = expense.description
+        titleLabel.text = expense.title
+        
     }
     
     
