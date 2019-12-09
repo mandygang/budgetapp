@@ -11,12 +11,26 @@ import UIKit
 class CategoryCollectionViewCell: UICollectionViewCell {
     var categoryLabel: UILabel!
     let padding = CGFloat(3)
+    var selectedCat: String?
+    var isItSelected: Bool?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         layer.masksToBounds = true;
         layer.borderWidth = 1
+        if let isSelected = isItSelected {
+            if isSelected {
+                layer.borderColor = UIColor.accentGreen.cgColor
+                backgroundColor = .accentGreen
+            } else {
+                layer.borderColor = UIColor.accentGreen.cgColor
+                backgroundColor = .background
+            }
+        } else {
+            layer.borderColor = UIColor.accentGreen.cgColor
+            backgroundColor = .background
+        }
         layer.borderColor = UIColor.accentGreen.cgColor
         layer.cornerRadius = 6;
         backgroundColor = .background
@@ -38,13 +52,16 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func configure(for category: String){
+    func configure(for category: String, selected: String?){
         categoryLabel.text = category
         
-//        if selected {
-//            backgroundColor = UIColor(hue: 0.6889, saturation: 0.34, brightness: 1, alpha: 1.0)
-//        } else {
-//            backgroundColor = UIColor(hue: 0.6889, saturation: 0.14, brightness: 1, alpha: 1.0)
-//        }
+        if let selectedCat = selected {
+            if category == selectedCat {
+                isItSelected = true
+            } else {
+                isItSelected = false
+            }
+        }
+
     }
 }

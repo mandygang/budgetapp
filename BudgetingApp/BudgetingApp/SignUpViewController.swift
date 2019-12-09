@@ -185,10 +185,11 @@ class SignUpViewController: UIViewController {
                 NetworkManager.getUserIDByEmail(email: email) { user in
                     Statics.user = user
                     print(Statics.user?.email)
+                    DispatchQueue.main.async {
+                        let viewController = MainTabViewController()
+                        self.navigationController?.pushViewController(viewController, animated: true)
+                    }
                 }
-                
-            let viewController = MainTabViewController()
-                self.navigationController?.pushViewController(viewController, animated: true)
             }
         }
        

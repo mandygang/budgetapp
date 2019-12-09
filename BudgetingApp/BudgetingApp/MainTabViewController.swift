@@ -22,15 +22,15 @@ class MainTabViewController: UITabBarController {
     func setupTabBar() {
         
         let myBudgetVC = MyBudgetsViewController()
-        myBudgetVC.tabBarItem.image = UIImage(named: "budget")
+        myBudgetVC.tabBarItem.image = UIImage(named: "Wallet")
         myBudgetVC.tabBarItem.title = ""
         let expensesLogVC = ExpensesLogViewController()
-        expensesLogVC.tabBarItem.image = UIImage(named: "expense")
+        expensesLogVC.tabBarItem.image = UIImage(named: "Group")
          expensesLogVC.tabBarItem.title = ""
        // let profileVC = ProfileViewController()
        // let addExpenseVC = AddExpenseViewController()
         let homeVC = HomeViewController()
-        homeVC.tabBarItem.image = UIImage(named: "home")
+        homeVC.tabBarItem.image = UIImage(named: "Icon")
          homeVC.tabBarItem.title = ""
 //        homeVC.tabBarItem.
        // let signUpVC = SignUpViewController()
@@ -41,17 +41,8 @@ class MainTabViewController: UITabBarController {
         
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-
-        let newTabBarHeight = defaultTabBarHeight + 16.0
-
-        var newFrame = tabBar.frame
-        newFrame.size.height = newTabBarHeight
-        newFrame.origin.y = view.frame.size.height - newTabBarHeight
-
-        tabBar.frame = newFrame
-    }
+//
+    
     
 //    override func viewWillLayoutSubviews() {
 //        var tabFrame = self.tabBar.frame

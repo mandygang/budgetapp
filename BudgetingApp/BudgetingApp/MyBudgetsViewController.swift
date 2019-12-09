@@ -104,7 +104,8 @@ class MyBudgetsViewController: UIViewController {
     }
     
     func getAllBudgets() {
-        NetworkManager.getBudgets(userID: 1) { budgets in
+        let user = Statics.user!
+        NetworkManager.getBudgets(userID: user.user_id) { budgets in
             self.budgets = budgets
             print(budgets)
             print("done getting all budgets")
