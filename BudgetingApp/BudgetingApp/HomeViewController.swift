@@ -164,7 +164,7 @@ class HomeViewController: UIViewController {
             
             DispatchQueue.main.async {
                 self.findPercentage()
-                self.progressBar.value = CGFloat(76)
+                self.progressBar.value = CGFloat(self.percentage)
                 self.progressBar.maxValue = CGFloat(100)
                 self.progressBar.progressRotationAngle = CGFloat(100)
                 self.progressBar.progressAngle = CGFloat(100)

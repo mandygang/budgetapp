@@ -83,6 +83,7 @@ class EditBudgetViewController: UIViewController {
         deleteButton = UIButton()
         deleteButton.setTitle("Delete", for: .normal)
         deleteButton.layer.cornerRadius = 10
+        deleteButton.layer.borderColor = UIColor(red: 1, green: 0.5686, blue: 0.5686, alpha: 1.0).cgColor
         deleteButton.setTitleColor(.white, for: .normal)
         deleteButton.contentHorizontalAlignment = .center
         deleteButton.contentVerticalAlignment = .center

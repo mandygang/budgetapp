@@ -101,19 +101,15 @@ class ExpensesLogViewController: UIViewController {
         }
         
     }
+
     
     func getExpenses() {
         let user = Statics.user!
         print("printing user now")
         print(user)
         NetworkManager.getExpensesForUser(userID: user.user_id) { expenses in
-//            self.expenses = expenses
-//            self.visibleExpenses = expenses
-//            print(expenses)
-//            print("done getting expenses")
-//            print(self.expenses)
-//            print("after printing expenses")
             self.expenses = expenses
+            self.visibleExpenses = expenses
             print(self.expenses)
             print(expenses)
             print("done getting expenses")
