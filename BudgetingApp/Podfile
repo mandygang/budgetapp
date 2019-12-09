@@ -8,5 +8,5 @@ target 'BudgetingApp' do
   # Pods for BudgetingApp
 	pod 'Alamofire'
 	pod 'SnapKit'
-
+        pod 'MBCircularProgressBar'
 end

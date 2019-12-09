@@ -3,24 +3,68 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		16D27E9C1F3E042D80FBDAA2 /* Pods_BudgetingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3E5044A01641E962742175 /* Pods_BudgetingApp.framework */; };
+		3E0086272399E8DA00ADBAF3 /* ExpenseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0086262399E8DA00ADBAF3 /* ExpenseHeaderView.swift */; };
+		3E00862B2399FDE200ADBAF3 /* Colours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E00862A2399FDE200ADBAF3 /* Colours.swift */; };
+		3E00862F239A1C1E00ADBAF3 /* BudgetsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E00862E239A1C1E00ADBAF3 /* BudgetsHeaderView.swift */; };
+		3E3D16CF239CECE70040ED94 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D16CE239CECE70040ED94 /* Tag.swift */; };
+		3E3D16D3239D75300040ED94 /* Statics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D16D2239D75300040ED94 /* Statics.swift */; };
+		3E3D16D5239DA8710040ED94 /* EditExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D16D4239DA8710040ED94 /* EditExpenseViewController.swift */; };
+		3E3D16D7239DBC490040ED94 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D16D6239DBC490040ED94 /* LogInViewController.swift */; };
+		3E4AE6E1239C02B300631661 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4AE6E0239C02B300631661 /* NetworkManager.swift */; };
 		3E57C27C2384FBBA00FEF6E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57C27B2384FBBA00FEF6E2 /* AppDelegate.swift */; };
-		3E57C2802384FBBA00FEF6E2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57C27F2384FBBA00FEF6E2 /* ViewController.swift */; };
+		3E57C2802384FBBA00FEF6E2 /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57C27F2384FBBA00FEF6E2 /* MainTabViewController.swift */; };
 		3E57C2852384FBBA00FEF6E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E57C2842384FBBA00FEF6E2 /* Assets.xcassets */; };
-		3E57C2882384FBBA00FEF6E2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E57C2862384FBBA00FEF6E2 /* LaunchScreen.storyboard */; };
+		3E57C2902385A12000FEF6E2 /* MyBudgetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57C28F2385A12000FEF6E2 /* MyBudgetsViewController.swift */; };
+		3E57C2922385A13000FEF6E2 /* BudgetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57C2912385A13000FEF6E2 /* BudgetDetailViewController.swift */; };
+		3E57C2942385A14500FEF6E2 /* SetBudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57C2932385A14500FEF6E2 /* SetBudgetViewController.swift */; };
+		3E57C2962385A1C900FEF6E2 /* ExpensesLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57C2952385A1C900FEF6E2 /* ExpensesLogViewController.swift */; };
+		3E57C2982385A23400FEF6E2 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57C2972385A23400FEF6E2 /* ProfileViewController.swift */; };
+		3E57C29B2385A7B100FEF6E2 /* AddExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57C29A2385A7B100FEF6E2 /* AddExpenseViewController.swift */; };
+		3E6959112386351A00A9A973 /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6959102386351A00A9A973 /* Budget.swift */; };
+		3E6959172386365000A9A973 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6959162386365000A9A973 /* User.swift */; };
+		3E69591923863DC500A9A973 /* MyBudgetsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E69591823863DC500A9A973 /* MyBudgetsCollectionViewCell.swift */; };
+		3E69591D238704C700A9A973 /* Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E69591C238704C700A9A973 /* Expense.swift */; };
+		3E69591F23870A5900A9A973 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E69591E23870A5900A9A973 /* CategoryCollectionViewCell.swift */; };
+		3E69592123870A6200A9A973 /* ExpenseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E69592023870A6200A9A973 /* ExpenseCollectionViewCell.swift */; };
+		3E6CBE08239B25A1004F7058 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6CBE07239B25A1004F7058 /* HomeViewController.swift */; };
+		3E6CBE0E239BF21A004F7058 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6CBE0D239BF21A004F7058 /* SignUpViewController.swift */; };
+		3EB5E0AF239A371500B3A7CD /* EditBudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB5E0AE239A371500B3A7CD /* EditBudgetViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E0086262399E8DA00ADBAF3 /* ExpenseHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseHeaderView.swift; sourceTree = "<group>"; };
+		3E00862A2399FDE200ADBAF3 /* Colours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colours.swift; sourceTree = "<group>"; };
+		3E00862E239A1C1E00ADBAF3 /* BudgetsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetsHeaderView.swift; sourceTree = "<group>"; };
+		3E3D16CE239CECE70040ED94 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		3E3D16D2239D75300040ED94 /* Statics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statics.swift; sourceTree = "<group>"; };
+		3E3D16D4239DA8710040ED94 /* EditExpenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExpenseViewController.swift; sourceTree = "<group>"; };
+		3E3D16D6239DBC490040ED94 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		3E4AE6E0239C02B300631661 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		3E57C2782384FBBA00FEF6E2 /* BudgetingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BudgetingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E57C27B2384FBBA00FEF6E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3E57C27F2384FBBA00FEF6E2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3E57C27F2384FBBA00FEF6E2 /* MainTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
 		3E57C2842384FBBA00FEF6E2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		3E57C2872384FBBA00FEF6E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3E57C2892384FBBA00FEF6E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3E57C28F2385A12000FEF6E2 /* MyBudgetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBudgetsViewController.swift; sourceTree = "<group>"; };
+		3E57C2912385A13000FEF6E2 /* BudgetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetDetailViewController.swift; sourceTree = "<group>"; };
+		3E57C2932385A14500FEF6E2 /* SetBudgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetBudgetViewController.swift; sourceTree = "<group>"; };
+		3E57C2952385A1C900FEF6E2 /* ExpensesLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesLogViewController.swift; sourceTree = "<group>"; };
+		3E57C2972385A23400FEF6E2 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		3E57C29A2385A7B100FEF6E2 /* AddExpenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseViewController.swift; sourceTree = "<group>"; };
+		3E6959102386351A00A9A973 /* Budget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Budget.swift; sourceTree = "<group>"; };
+		3E6959162386365000A9A973 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		3E69591823863DC500A9A973 /* MyBudgetsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBudgetsCollectionViewCell.swift; sourceTree = "<group>"; };
+		3E69591C238704C700A9A973 /* Expense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expense.swift; sourceTree = "<group>"; };
+		3E69591E23870A5900A9A973 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		3E69592023870A6200A9A973 /* ExpenseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseCollectionViewCell.swift; sourceTree = "<group>"; };
+		3E6CBE07239B25A1004F7058 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		3E6CBE0D239BF21A004F7058 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		3EB5E0AE239A371500B3A7CD /* EditBudgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBudgetViewController.swift; sourceTree = "<group>"; };
 		55518A9DC4885ED8662AA222 /* Pods-BudgetingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BudgetingApp.debug.xcconfig"; path = "Target Support Files/Pods-BudgetingApp/Pods-BudgetingApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E5C0D28754DCA3EADDD7194F /* Pods-BudgetingApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BudgetingApp.release.xcconfig"; path = "Target Support Files/Pods-BudgetingApp/Pods-BudgetingApp.release.xcconfig"; sourceTree = "<group>"; };
 		EC3E5044A01641E962742175 /* Pods_BudgetingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BudgetingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,10 +111,32 @@
 		3E57C27A2384FBBA00FEF6E2 /* BudgetingApp */ = {
 			isa = PBXGroup;
 			children = (
+				3E00862A2399FDE200ADBAF3 /* Colours.swift */,
 				3E57C27B2384FBBA00FEF6E2 /* AppDelegate.swift */,
-				3E57C27F2384FBBA00FEF6E2 /* ViewController.swift */,
+				3E57C2952385A1C900FEF6E2 /* ExpensesLogViewController.swift */,
+				3E3D16D2239D75300040ED94 /* Statics.swift */,
+				3E0086262399E8DA00ADBAF3 /* ExpenseHeaderView.swift */,
+				3E69591E23870A5900A9A973 /* CategoryCollectionViewCell.swift */,
+				3E6CBE0D239BF21A004F7058 /* SignUpViewController.swift */,
+				3E3D16D4239DA8710040ED94 /* EditExpenseViewController.swift */,
+				3E4AE6E0239C02B300631661 /* NetworkManager.swift */,
+				3E3D16D6239DBC490040ED94 /* LogInViewController.swift */,
+				3E69592023870A6200A9A973 /* ExpenseCollectionViewCell.swift */,
+				3E57C27F2384FBBA00FEF6E2 /* MainTabViewController.swift */,
+				3E6CBE07239B25A1004F7058 /* HomeViewController.swift */,
+				3E57C29A2385A7B100FEF6E2 /* AddExpenseViewController.swift */,
+				3E57C2972385A23400FEF6E2 /* ProfileViewController.swift */,
+				3E57C28F2385A12000FEF6E2 /* MyBudgetsViewController.swift */,
+				3E00862E239A1C1E00ADBAF3 /* BudgetsHeaderView.swift */,
+				3E69591823863DC500A9A973 /* MyBudgetsCollectionViewCell.swift */,
+				3E57C2912385A13000FEF6E2 /* BudgetDetailViewController.swift */,
+				3EB5E0AE239A371500B3A7CD /* EditBudgetViewController.swift */,
+				3E57C2932385A14500FEF6E2 /* SetBudgetViewController.swift */,
+				3E69591C238704C700A9A973 /* Expense.swift */,
+				3E6959102386351A00A9A973 /* Budget.swift */,
+				3E3D16CE239CECE70040ED94 /* Tag.swift */,
+				3E6959162386365000A9A973 /* User.swift */,
 				3E57C2842384FBBA00FEF6E2 /* Assets.xcassets */,
-				3E57C2862384FBBA00FEF6E2 /* LaunchScreen.storyboard */,
 				3E57C2892384FBBA00FEF6E2 /* Info.plist */,
 			);
 			path = BudgetingApp;
@@ -82,7 +148,6 @@
 				55518A9DC4885ED8662AA222 /* Pods-BudgetingApp.debug.xcconfig */,
 				E5C0D28754DCA3EADDD7194F /* Pods-BudgetingApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -146,7 +211,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E57C2882384FBBA00FEF6E2 /* LaunchScreen.storyboard in Resources */,
 				3E57C2852384FBBA00FEF6E2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -200,23 +264,35 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E57C2802384FBBA00FEF6E2 /* ViewController.swift in Sources */,
+				3E69591D238704C700A9A973 /* Expense.swift in Sources */,
+				3E57C2962385A1C900FEF6E2 /* ExpensesLogViewController.swift in Sources */,
+				3E6CBE08239B25A1004F7058 /* HomeViewController.swift in Sources */,
+				3E4AE6E1239C02B300631661 /* NetworkManager.swift in Sources */,
+				3E0086272399E8DA00ADBAF3 /* ExpenseHeaderView.swift in Sources */,
+				3E57C29B2385A7B100FEF6E2 /* AddExpenseViewController.swift in Sources */,
+				3E3D16CF239CECE70040ED94 /* Tag.swift in Sources */,
+				3E57C2942385A14500FEF6E2 /* SetBudgetViewController.swift in Sources */,
+				3E57C2922385A13000FEF6E2 /* BudgetDetailViewController.swift in Sources */,
+				3E3D16D3239D75300040ED94 /* Statics.swift in Sources */,
+				3E57C2902385A12000FEF6E2 /* MyBudgetsViewController.swift in Sources */,
+				3E69591F23870A5900A9A973 /* CategoryCollectionViewCell.swift in Sources */,
+				3E6959112386351A00A9A973 /* Budget.swift in Sources */,
+				3E00862F239A1C1E00ADBAF3 /* BudgetsHeaderView.swift in Sources */,
+				3E57C2982385A23400FEF6E2 /* ProfileViewController.swift in Sources */,
+				3E3D16D5239DA8710040ED94 /* EditExpenseViewController.swift in Sources */,
+				3E69592123870A6200A9A973 /* ExpenseCollectionViewCell.swift in Sources */,
+				3E57C2802384FBBA00FEF6E2 /* MainTabViewController.swift in Sources */,
+				3E6CBE0E239BF21A004F7058 /* SignUpViewController.swift in Sources */,
+				3EB5E0AF239A371500B3A7CD /* EditBudgetViewController.swift in Sources */,
+				3E6959172386365000A9A973 /* User.swift in Sources */,
 				3E57C27C2384FBBA00FEF6E2 /* AppDelegate.swift in Sources */,
+				3E69591923863DC500A9A973 /* MyBudgetsCollectionViewCell.swift in Sources */,
+				3E3D16D7239DBC490040ED94 /* LogInViewController.swift in Sources */,
+				3E00862B2399FDE200ADBAF3 /* Colours.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		3E57C2862384FBBA00FEF6E2 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3E57C2872384FBBA00FEF6E2 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		3E57C28A2384FBBA00FEF6E2 /* Debug */ = {
