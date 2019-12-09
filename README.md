@@ -39,7 +39,9 @@ Integration with an API - this API must provide some meaningful value to your ap
 >All users and their corresponding budgets and expenses are stored in a server that we deployed. The app then uses a lot of network calls, such as getBudget, getUsers, getExpenses, in order to display content on the pages. The users are registered and stored in the server by first and last name, email and password. When the user logs in, the user_id corresponding to the user is is stored and used to get all the information stored related to that user by get method calls. Budgets and expenses can also be edited by using post calls and deleted by delete calls.
 
 ## A Note to the Grader
-Frontend-wise, Janice used a Cocoa-pod to create the circular progress wheel that displays how much of your total budget that you have used. The more expenses you add, the closer you get to your final budget. The messages that our mascot, Bertie the dog, says on the homepage were supposed to change as you got closer and closer to the budget limit but unfortunately was not able to implement it as we ran out of time. There are many potential features that we brainstormed for this app that were not implemented due to time-constraints so please take a look at the screens that our designer made to get a glimpse at its full potential!
+Frontend-wise, Janice used a Cocoa-pod to create the circular progress wheel that displays how much of your total budget that you have used. The more expenses you add, the closer you get to your final budget. The messages that our mascot, Bertie the dog, says on the homepage were supposed to change as you got closer and closer to the budget limit but unfortunately was not able to implement it as we ran out of time. 
+
+There are many features that we brainstormed for this app that were not implemented due to time-constraints so please take a look at the prototypes and screens in the Screens folder that our designer made to get a glimpse of our app at its full potential!
 
 
 
