@@ -8,16 +8,21 @@
 
 import Foundation
 
+struct getSingleUserResponse: Codable {
+    var success: Bool
+    var data: User
+}
+
 struct getUserResponse: Codable {
     var success: Bool
     var data: [User]
 }
 
 struct User: Codable {
+    var user_id: Int
     var firstName: String
     var lastName: String
     var email: String
-    var password_digest: String
     var expenses: [Expense]
     var budgets: [Budget]
 }

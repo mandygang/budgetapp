@@ -16,6 +16,7 @@ class SignUpViewController: UIViewController {
     var emailTextField: UITextField!
     var passwordTextField: UITextField!
     var signUpButton: UIButton!
+    var orLogInButton: UIButton!
     
     var users: [User] = []
     
@@ -107,6 +108,16 @@ class SignUpViewController: UIViewController {
         signUpButton.addTarget(self, action: #selector(signUp), for: .touchUpInside)
         view.addSubview(signUpButton)
         
+        orLogInButton = UIButton()
+        orLogInButton.setTitle("or log in!", for: .normal)
+        orLogInButton.setBackgroundImage(UIImage(named: "background"), for: .normal)
+        orLogInButton.titleLabel?.font = .systemFont(ofSize: 17, weight: .medium)
+        orLogInButton.setTitleColor(.secondary, for: .normal)
+        orLogInButton.layer.cornerRadius = 25
+        orLogInButton.layer.masksToBounds = true
+        orLogInButton.addTarget(self, action: #selector(orLogIn), for: .touchUpInside)
+        view.addSubview(orLogInButton)
+        
         setupConstraints()
         
     }
@@ -148,8 +159,15 @@ class SignUpViewController: UIViewController {
             make.width.equalTo(nameWidth * 2 + padding - 2)
             make.height.equalTo(height * 1.4)
             make.centerX.equalTo(view)
-            
         }
+        
+        orLogInButton.snp.makeConstraints { make in
+            make.top.equalTo(signUpButton.snp.bottom).offset(30)
+            make.width.equalTo(100)
+            make.height.equalTo(40)
+            make.centerX.equalTo(view)
+        }
+        
     }
     
     func getUsers() {
@@ -163,10 +181,22 @@ class SignUpViewController: UIViewController {
     @objc func signUp() {
         if let first = firstTextField.text, let last = lastTextField.text, let email = emailTextField.text, let password = passwordTextField.text {
             NetworkManager.registerUser(email: email, password: password, first: first, last: last) {
-            print("register user")
+                print("register user")
+                NetworkManager.getUserIDByEmail(email: email) { user in
+                    Statics.user = user
+                    print(Statics.user?.email)
+                }
+                
+            let viewController = MainTabViewController()
+                self.navigationController?.pushViewController(viewController, animated: true)
             }
         }
        
+    }
+    
+    @objc func orLogIn() {
+        let viewController = LogInViewController()
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
 }

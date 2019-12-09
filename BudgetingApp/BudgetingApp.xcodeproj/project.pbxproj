@@ -11,6 +11,10 @@
 		3E0086272399E8DA00ADBAF3 /* ExpenseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0086262399E8DA00ADBAF3 /* ExpenseHeaderView.swift */; };
 		3E00862B2399FDE200ADBAF3 /* Colours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E00862A2399FDE200ADBAF3 /* Colours.swift */; };
 		3E00862F239A1C1E00ADBAF3 /* BudgetsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E00862E239A1C1E00ADBAF3 /* BudgetsHeaderView.swift */; };
+		3E3D16CF239CECE70040ED94 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D16CE239CECE70040ED94 /* Tag.swift */; };
+		3E3D16D3239D75300040ED94 /* Statics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D16D2239D75300040ED94 /* Statics.swift */; };
+		3E3D16D5239DA8710040ED94 /* EditExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D16D4239DA8710040ED94 /* EditExpenseViewController.swift */; };
+		3E3D16D7239DBC490040ED94 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D16D6239DBC490040ED94 /* LogInViewController.swift */; };
 		3E4AE6E1239C02B300631661 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4AE6E0239C02B300631661 /* NetworkManager.swift */; };
 		3E57C27C2384FBBA00FEF6E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57C27B2384FBBA00FEF6E2 /* AppDelegate.swift */; };
 		3E57C2802384FBBA00FEF6E2 /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57C27F2384FBBA00FEF6E2 /* MainTabViewController.swift */; };
@@ -36,6 +40,10 @@
 		3E0086262399E8DA00ADBAF3 /* ExpenseHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseHeaderView.swift; sourceTree = "<group>"; };
 		3E00862A2399FDE200ADBAF3 /* Colours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colours.swift; sourceTree = "<group>"; };
 		3E00862E239A1C1E00ADBAF3 /* BudgetsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetsHeaderView.swift; sourceTree = "<group>"; };
+		3E3D16CE239CECE70040ED94 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		3E3D16D2239D75300040ED94 /* Statics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statics.swift; sourceTree = "<group>"; };
+		3E3D16D4239DA8710040ED94 /* EditExpenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExpenseViewController.swift; sourceTree = "<group>"; };
+		3E3D16D6239DBC490040ED94 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		3E4AE6E0239C02B300631661 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		3E57C2782384FBBA00FEF6E2 /* BudgetingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BudgetingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E57C27B2384FBBA00FEF6E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -106,10 +114,13 @@
 				3E00862A2399FDE200ADBAF3 /* Colours.swift */,
 				3E57C27B2384FBBA00FEF6E2 /* AppDelegate.swift */,
 				3E57C2952385A1C900FEF6E2 /* ExpensesLogViewController.swift */,
+				3E3D16D2239D75300040ED94 /* Statics.swift */,
 				3E0086262399E8DA00ADBAF3 /* ExpenseHeaderView.swift */,
 				3E69591E23870A5900A9A973 /* CategoryCollectionViewCell.swift */,
 				3E6CBE0D239BF21A004F7058 /* SignUpViewController.swift */,
+				3E3D16D4239DA8710040ED94 /* EditExpenseViewController.swift */,
 				3E4AE6E0239C02B300631661 /* NetworkManager.swift */,
+				3E3D16D6239DBC490040ED94 /* LogInViewController.swift */,
 				3E69592023870A6200A9A973 /* ExpenseCollectionViewCell.swift */,
 				3E57C27F2384FBBA00FEF6E2 /* MainTabViewController.swift */,
 				3E6CBE07239B25A1004F7058 /* HomeViewController.swift */,
@@ -123,6 +134,7 @@
 				3E57C2932385A14500FEF6E2 /* SetBudgetViewController.swift */,
 				3E69591C238704C700A9A973 /* Expense.swift */,
 				3E6959102386351A00A9A973 /* Budget.swift */,
+				3E3D16CE239CECE70040ED94 /* Tag.swift */,
 				3E6959162386365000A9A973 /* User.swift */,
 				3E57C2842384FBBA00FEF6E2 /* Assets.xcassets */,
 				3E57C2892384FBBA00FEF6E2 /* Info.plist */,
@@ -258,13 +270,16 @@
 				3E4AE6E1239C02B300631661 /* NetworkManager.swift in Sources */,
 				3E0086272399E8DA00ADBAF3 /* ExpenseHeaderView.swift in Sources */,
 				3E57C29B2385A7B100FEF6E2 /* AddExpenseViewController.swift in Sources */,
+				3E3D16CF239CECE70040ED94 /* Tag.swift in Sources */,
 				3E57C2942385A14500FEF6E2 /* SetBudgetViewController.swift in Sources */,
 				3E57C2922385A13000FEF6E2 /* BudgetDetailViewController.swift in Sources */,
+				3E3D16D3239D75300040ED94 /* Statics.swift in Sources */,
 				3E57C2902385A12000FEF6E2 /* MyBudgetsViewController.swift in Sources */,
 				3E69591F23870A5900A9A973 /* CategoryCollectionViewCell.swift in Sources */,
 				3E6959112386351A00A9A973 /* Budget.swift in Sources */,
 				3E00862F239A1C1E00ADBAF3 /* BudgetsHeaderView.swift in Sources */,
 				3E57C2982385A23400FEF6E2 /* ProfileViewController.swift in Sources */,
+				3E3D16D5239DA8710040ED94 /* EditExpenseViewController.swift in Sources */,
 				3E69592123870A6200A9A973 /* ExpenseCollectionViewCell.swift in Sources */,
 				3E57C2802384FBBA00FEF6E2 /* MainTabViewController.swift in Sources */,
 				3E6CBE0E239BF21A004F7058 /* SignUpViewController.swift in Sources */,
@@ -272,6 +287,7 @@
 				3E6959172386365000A9A973 /* User.swift in Sources */,
 				3E57C27C2384FBBA00FEF6E2 /* AppDelegate.swift in Sources */,
 				3E69591923863DC500A9A973 /* MyBudgetsCollectionViewCell.swift in Sources */,
+				3E3D16D7239DBC490040ED94 /* LogInViewController.swift in Sources */,
 				3E00862B2399FDE200ADBAF3 /* Colours.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

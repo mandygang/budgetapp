@@ -16,8 +16,8 @@ class BudgetDetailViewController: UIViewController {
     var amountString: String
     
     init(for budget: Budget) {
-        categoryString = budget.category
-        amountString = budget.amount
+        categoryString = Statics.categories[budget.tag_id]
+        amountString = String(budget.limit)
         super.init(nibName: nil, bundle: nil)
         
     }

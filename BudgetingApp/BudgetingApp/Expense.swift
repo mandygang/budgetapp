@@ -8,23 +8,37 @@
 
 import Foundation
 
-struct Expense: Codable {
-//    var id: String
-//    var title: String
-//    var amount: String
-//    var description: String
-//    var date: String
-//    var user_id: String
-//    var tags: String
-    var category: String
-    var amount: String
-    var note: String
+struct createExpensesResponse: Codable {
+    var success: Bool
+    var data: Expense
+}
+
+struct getExpensesResponse: Codable {
+    var success: Bool
+    var data: [Expense]
+}
+
+class Expense: Codable {
+    var expense_id: Int
+    var title: String
+    var amount: Float
+    var description: String
+    var date: String
+    var tag: Int
+
     
-    init(category: String, amount: String, note: String) {
-        self.category = category
-        self.amount = amount
-        self.note = note
-    }
+//    'expense_id': self.id,
+//    'title': self.title,
+//    'amount': self.amount,
+//    'description': self.description,
+//    'date': self.date,
+//    'tags': [t.serialize() for t in self.tags]
+    
+//    init(category: String, amount: String, note: String) {
+//        self.category = category
+//        self.amount = amount
+//        self.note = note
+//    }
     
 }
 

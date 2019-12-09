@@ -20,12 +20,12 @@ class MainTabViewController: UITabBarController {
 
     func setupTabBar() {
         
-        let myBudgetVC = UINavigationController(rootViewController: MyBudgetsViewController())
-        let expensesLogVC = UINavigationController(rootViewController: ExpensesLogViewController())
-        let profileVC = UINavigationController(rootViewController: ProfileViewController())
-        let addExpenseVC = UINavigationController(rootViewController: AddExpenseViewController())
-        let homeVC = UINavigationController(rootViewController: HomeViewController())
-        let signUpVC = UINavigationController(rootViewController: SignUpViewController())
+        let myBudgetVC = MyBudgetsViewController()
+        let expensesLogVC = ExpensesLogViewController()
+        let profileVC = ProfileViewController()
+        let addExpenseVC = AddExpenseViewController()
+        let homeVC = HomeViewController()
+        let signUpVC = SignUpViewController()
         
         viewControllers = [signUpVC, homeVC, myBudgetVC, expensesLogVC, addExpenseVC, profileVC]
 //        viewControllers = controllers.map { UINavigationController(rootViewController: $0)}

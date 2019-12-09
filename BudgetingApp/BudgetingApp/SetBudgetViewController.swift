@@ -22,7 +22,9 @@ class SetBudgetViewController: UIViewController, UITextFieldDelegate {
     var otherButton: UIButton!
     var createButton: UIButton!
     
+    weak var delegate: pushModallyDelegate?
     
+    var selectedCat: Int?
         
     let buttonWidth = 150
     let buttonHeight = 40
@@ -259,61 +261,86 @@ class SetBudgetViewController: UIViewController, UITextFieldDelegate {
     @objc func foodButtonPressed() {
         if foodButton.isSelected {
             foodButton.isSelected = false
+            selectedCat = nil
         } else {
             foodButton.isSelected = true
+            selectedCat = 0
         }
     }
     
     @objc func entertainmentButtonPressed() {
         if entertainmentButton.isSelected {
             entertainmentButton.isSelected = false
+            selectedCat = nil
         } else {
             entertainmentButton.isSelected = true
+            selectedCat = 1
         }
     }
     
     @objc func billsButtonPressed() {
         if billsButton.isSelected {
             billsButton.isSelected = false
+            selectedCat = nil
         } else {
             billsButton.isSelected = true
+            selectedCat = 2
         }
     }
     
     @objc func groceriesButtonPressed() {
         if groceriesButton.isSelected {
             groceriesButton.isSelected = false
+            selectedCat = nil
         } else {
             groceriesButton.isSelected = true
+            selectedCat = 3
         }
     }
     
     @objc func shopButtonPressed() {
         if shopButton.isSelected {
             shopButton.isSelected = false
+            selectedCat = nil
         } else {
             shopButton.isSelected = true
+            selectedCat = 4
         }
     }
     
     @objc func transportButtonPressed() {
         if transportButton.isSelected {
             transportButton.isSelected = false
+            selectedCat = nil
         } else {
             transportButton.isSelected = true
+            selectedCat = 5
         }
     }
     
     @objc func otherButtonPressed() {
         if otherButton.isSelected {
             otherButton.isSelected = false
+            selectedCat = nil
         } else {
             otherButton.isSelected = true
+            selectedCat = 6
         }
     }
     
     @objc func createButtonPressed() {
-        //implement with backend
+        if let tag = selectedCat, let limitString = amountTextField.text {
+            print(tag)
+            print(limitString)
+            NetworkManager.createBudget(userID: 1, tagID: tag, limit: limitString) { budget in
+                
+                print("budget successfully created")
+                
+                self.delegate?.createBudget(budget: budget)
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+        
     }
     
 

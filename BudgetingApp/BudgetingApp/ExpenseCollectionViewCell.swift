@@ -65,8 +65,10 @@ class ExpenseCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(for expense: Expense) {
-        categoryLabel.text = expense.category
-        amountLabel.text = expense.amount
-        noteLabel.text = expense.note
+        categoryLabel.text = Statics.categories[expense.tag]
+        amountLabel.text = String(expense.amount)
+        noteLabel.text = expense.description
     }
+    
+    
 }

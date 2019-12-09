@@ -1,20 +1,24 @@
 PODS:
   - Alamofire (4.9.1)
+  - MBCircularProgressBar (0.3.5)
   - SnapKit (5.0.1)
 
 DEPENDENCIES:
   - Alamofire
+  - MBCircularProgressBar
   - SnapKit
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - MBCircularProgressBar
     - SnapKit
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  MBCircularProgressBar: 0b795b722a5eb5b0923822f90474e2576a1a7855
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: 7036ad7ab44867e9e5149bafa629dfcd6966303e
+PODFILE CHECKSUM: 91ce742ff68710378cc3f303bb387d0fe4625545
 
 COCOAPODS: 1.8.4

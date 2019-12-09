@@ -7,112 +7,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E531ACB6-5217-490F-AF50-DEF77C627ED1"
+            uuid = "D6112AF6-829C-47FC-8355-D2147ADE1BF5"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BudgetingApp/SignUpViewController.swift"
+            filePath = "BudgetingApp/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
+            landmarkName = "getTotalBudget()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D160297A-EE6E-4D94-AFF5-201CA1BB47C9"
+            uuid = "5867948C-995E-413A-BE25-22DF1F8BBF8B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BudgetingApp/SignUpViewController.swift"
+            filePath = "BudgetingApp/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "156"
-            endingLineNumber = "156"
-            landmarkName = "getUsers()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "D160297A-EE6E-4D94-AFF5-201CA1BB47C9 - 2ca134189ce75b1e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "BudgetingApp.SignUpViewController.getUsers() -&gt; ()"
-                  moduleName = "BudgetingApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/janicejung/Documents/fa19/appdev/hackchallenge/budgetapp/BudgetingApp/BudgetingApp/SignUpViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "156"
-                  endingLineNumber = "156"
-                  offsetFromSymbolStart = "30">
-               </Location>
-               <Location
-                  uuid = "D160297A-EE6E-4D94-AFF5-201CA1BB47C9 - ef5ca309d3b84954"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Array&lt;BudgetingApp.User&gt;) -&gt; () in BudgetingApp.SignUpViewController.getUsers() -&gt; ()"
-                  moduleName = "BudgetingApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/janicejung/Documents/fa19/appdev/hackchallenge/budgetapp/BudgetingApp/BudgetingApp/SignUpViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "157"
-                  endingLineNumber = "157"
-                  offsetFromSymbolStart = "45">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "0835B016-D5EC-4574-8C5A-FAF8A03062A7"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BudgetingApp/SignUpViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "157"
-            endingLineNumber = "157"
-            landmarkName = "getUsers()"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
+            landmarkName = "findPercentage()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8953706E-34E7-46A6-9513-3A7502B1E26D"
+            uuid = "F31D1817-48AB-4BFC-AEF2-F5BABD23976B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BudgetingApp/SignUpViewController.swift"
+            filePath = "BudgetingApp/ExpensesLogViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
-            landmarkName = "getUsers()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2E8CFA1C-643A-4A59-9167-27926D99727B"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BudgetingApp/SignUpViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
-            landmarkName = "getUsers()"
+            startingLineNumber = "212"
+            endingLineNumber = "212"
+            landmarkName = "collectionView(_:viewForSupplementaryElementOfKind:at:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

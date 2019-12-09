@@ -6,6 +6,10 @@
 //  Copyright © 2019 Janice Jung. All rights reserved.
 //
 
+protocol ReloadBudgetsDelegate: class {
+    func reloadBudgets()
+}
+
 import UIKit
 
 class BudgetsHeaderView: UICollectionReusableView {
@@ -64,6 +68,14 @@ class BudgetsHeaderView: UICollectionReusableView {
     
     @objc func pushSetBudgetViewController() {
         let viewController = SetBudgetViewController()
+        viewController.delegate = delegate
         delegate?.pushSetBudgetViewController(for: viewController)
     }
 }
+
+extension BudgetsHeaderView: ReloadBudgetsDelegate {
+    func reloadBudgets() {
+    //    delegate?.editBudget(budget: <#T##Budget#>, index: <#T##Int#>)
+    }
+}
+

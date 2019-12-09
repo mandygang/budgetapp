@@ -18,20 +18,27 @@
 
 import Foundation
 
+struct createBudgetsResponse: Codable {
+    var success: Bool
+    var data: Budget
+}
+
+struct getBudgetsResponse: Codable {
+    var success: Bool
+    var data: [Budget]
+}
+
 struct Budget: Codable {
-//    var id: String
-//    var title: String
-//    var limit: Int
-//    var length: [String]
-//    var user_id: String
-//    var tag_id: String
-    var category: String
-    var amount: String
-    
-    init(category: String, amount: String) {
-        self.category = category
-        self.amount = amount
-    }
+    var budget_id: Int
+    var limit: Int
+    var tag_id: Int
+//    var category: String
+//    var amount: String
+//
+//    init(category: String, amount: String) {
+//        self.category = category
+//        self.amount = amount
+//    }
     
 }
 

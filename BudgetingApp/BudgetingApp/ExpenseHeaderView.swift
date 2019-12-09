@@ -19,7 +19,14 @@ class ExpenseHeaderView: UICollectionReusableView {
     var moneyLeftLabel: UILabel!
     var whiteBackground: UILabel!
     
-    weak var delegate: FilterExpensesDelegate?
+    var progressBarBackground: UIView!
+    var progressBarFill: UIView!
+    
+    
+    
+    var addExpenseButton: UIButton!
+    
+    weak var delegate: UpdateExpensesDelegate?
     
     let summaryFontSize = CGFloat(18)
     
@@ -55,11 +62,36 @@ class ExpenseHeaderView: UICollectionReusableView {
         whiteBackground.layer.masksToBounds = true
         addSubview(whiteBackground)
         
+        
+        progressBarFill = UIView()
+        progressBarFill.backgroundColor = .accentGreen
+        progressBarFill.layer.borderColor = UIColor.accentGreen.cgColor
+        progressBarFill.layer.borderWidth = 1
+        
+        progressBarBackground = UIView()
+        progressBarBackground.backgroundColor = .background
+        progressBarBackground.layer.borderColor = UIColor.accentGreen.cgColor
+        progressBarBackground.layer.borderWidth = 1
+        progressBarBackground.layer.masksToBounds = false
+
+
+        
         budgetLabel = UILabel()
-        budgetLabel.text = "Overall Budget"
+        if let selectedString = selectedCategory {
+            budgetLabel.text = "Overall" + selectedString + "Budget"
+        } else {
+            budgetLabel.text = "Overall Budget"
+        }
+        
         budgetLabel.font = .systemFont(ofSize: summaryFontSize, weight: .medium)
         budgetLabel.textColor = .secondary
         addSubview(budgetLabel)
+        
+        addExpenseButton = UIButton()
+        addExpenseButton.setTitle("add expense", for: .normal)
+        addExpenseButton.setBackgroundImage(UIImage(named: "accent"), for: .normal)
+        addExpenseButton.addTarget(self, action: #selector(createExpense), for: .touchUpInside)
+        addSubview(addExpenseButton)
         
         moneyLeftLabel = UILabel()
         
@@ -84,8 +116,15 @@ class ExpenseHeaderView: UICollectionReusableView {
             print("hello")
         }
         
-        whiteBackground.snp.makeConstraints { make in
+        addExpenseButton.snp.makeConstraints { make in
             make.top.equalTo(summaryLabel.snp.bottom).offset(13)
+            make.width.equalTo(100)
+            make.height.equalTo(100)
+            make.centerX.equalTo(self)
+        }
+        
+        whiteBackground.snp.makeConstraints { make in
+            make.top.equalTo(addExpenseButton.snp.bottom).offset(13)
             make.width.equalTo(self.frame.width - 30)
             make.centerX.equalTo(self)
             make.height.equalTo(150)
@@ -94,6 +133,7 @@ class ExpenseHeaderView: UICollectionReusableView {
         budgetLabel.snp.makeConstraints { make in
             make.left.top.equalTo(whiteBackground).offset(12)
         }
+        
     }
     
 }
@@ -122,7 +162,10 @@ extension ExpenseHeaderView: UICollectionViewDelegate, UICollectionViewDataSourc
         }
         delegate?.filter(for: selectedCategory)
     }
-
+    
+    @objc func createExpense(){
+        delegate?.pushAddExpense()
+    }
 }
 
 extension ExpenseHeaderView: UICollectionViewDelegateFlowLayout {
@@ -133,4 +176,21 @@ extension ExpenseHeaderView: UICollectionViewDelegateFlowLayout {
         label.sizeToFit()
         return CGSize(width: label.frame.width+20, height: 32)
     }
+    
+    func configure(width: Float) {
+        progressBarBackground.snp.makeConstraints { make in
+            make.top.equalTo(budgetLabel.snp.bottom).offset(10)
+            make.leading.equalTo(whiteBackground).offset(10)
+            make.trailing.equalTo(whiteBackground).offset(-10)
+        }
+        
+        progressBarFill.snp.makeConstraints { make in
+            make.top.equalTo(budgetLabel.snp.bottom).offset(10)
+            make.leading.equalTo(whiteBackground).offset(10)
+            make.width.equalTo(progressBarBackground).multipliedBy(width)
+        }
+    }
 }
+
+
+

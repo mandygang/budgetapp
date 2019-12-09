@@ -17,13 +17,21 @@ class EditBudgetViewController: UIViewController {
     var amountTextField: UITextField!
     var saveButton: UIButton!
     var deleteButton: UIButton!
+    var budgetID: Int!
+    var tagID: Int!
+    var index: Int!
+    
+    weak var delegate: pushModallyDelegate?
     
     let buttonWidth = 120
     let buttonHeight = 45
     
-    init(for budget: Budget) {
-        categoryString = budget.category
-        amountString = budget.amount
+    init(for budget: Budget, index: Int) {
+        categoryString = Statics.categories[budget.tag_id]
+        amountString = String(budget.limit)
+        budgetID = budget.budget_id
+        tagID = budget.tag_id
+        self.index = index
         super.init(nibName: nil, bundle: nil)
         
     }
@@ -117,12 +125,23 @@ class EditBudgetViewController: UIViewController {
     }
     
     @objc func saveBudget() {
-        //implement
+        if let editedAmount = amountTextField.text, let editedAmountInt = Int(editedAmount) {
+            NetworkManager.editBudget(budgetID: budgetID, limit: editedAmount, tagID: tagID) {
+                print("budget sucessfully edited")
+            }
+            let newBudget = Budget(budget_id: budgetID, limit: editedAmountInt, tag_id: tagID)
+            delegate?.editBudget(budget: newBudget, index: index)
+            dismiss(animated: true, completion: nil)
+        }
     }
    
     
     @objc func deleteBudget() {
-        //implement
+        NetworkManager.deleteBudget(budgetID: budgetID) {
+            print("budget successfully deleted")
+        }
+        delegate?.deleteBudget(index: index)
+        dismiss(animated: true, completion: nil)
     }
 
 }

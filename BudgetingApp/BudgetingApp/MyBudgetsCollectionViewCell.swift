@@ -66,10 +66,11 @@ class MyBudgetsCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(for budget: Budget) {
-        categoryLabel.text = budget.category + ":"
-        amountLabel.text = "$" + budget.amount
+        categoryLabel.text = Statics.categories[budget.tag_id]
+        amountLabel.text = "$" + String(budget.limit)
     }
     
 }
+
 
 

@@ -11,7 +11,11 @@ import SnapKit
 
 protocol pushModallyDelegate: class {
     func pushSetBudgetViewController(for: SetBudgetViewController)
+    func deleteBudget(index: Int)
+    func createBudget(budget: Budget)
+    func editBudget(budget: Budget, index: Int)
 }
+
 
 class MyBudgetsViewController: UIViewController {
     
@@ -35,14 +39,15 @@ class MyBudgetsViewController: UIViewController {
 //        addButton.action = #selector(pushSetBudgetViewController)
 //        navigationItem.rightBarButtonItem = addButton
         
-        let budget1 = Budget(category: "Food", amount: "300")
-        let budget2 = Budget(category: "Groceries", amount: "500")
-        let budget3 = Budget(category: "Shopping", amount: "200")
-        let budget4 = Budget(category: "Entertainment", amount: "100")
-        let budget5 = Budget(category: "Groceries", amount: "500")
-        let budget6 = Budget(category: "Transport", amount: "50")
+//        let budget1 = Budget(category: "Food", amount: "300")
+//        let budget2 = Budget(category: "Groceries", amount: "500")
+//        let budget3 = Budget(category: "Shopping", amount: "200")
+//        let budget4 = Budget(category: "Entertainment", amount: "100")
+//        let budget5 = Budget(category: "Groceries", amount: "500")
+//        let budget6 = Budget(category: "Transport", amount: "50")
         
-        budgets = [budget1, budget2, budget3, budget4, budget5, budget6]
+//        budgets = [budget1, budget2, budget3, budget4, budget5, budget6]
+
         
         view.backgroundColor = .background
         
@@ -75,6 +80,7 @@ class MyBudgetsViewController: UIViewController {
         view.addSubview(budgetCollectionView)
         
         setupConstraints()
+        getAllBudgets()
         
     }
     
@@ -93,6 +99,18 @@ class MyBudgetsViewController: UIViewController {
         budgetCollectionView.snp.makeConstraints { make in
             make.left.bottom.right.equalTo(view.safeAreaLayoutGuide).inset(UIEdgeInsets(top:0, left: 25, bottom: 20, right: 25))
             make.top.equalTo(titleLabel.snp.bottom)
+        }
+        
+    }
+    
+    func getAllBudgets() {
+        NetworkManager.getBudgets(userID: 1) { budgets in
+            self.budgets = budgets
+            print(budgets)
+            print("done getting all budgets")
+            DispatchQueue.main.async {
+                self.budgetCollectionView.reloadData()
+            }
         }
         
     }
@@ -135,19 +153,37 @@ extension MyBudgetsViewController: UICollectionViewDelegateFlowLayout {
 extension MyBudgetsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let budget = budgets[indexPath.row]
-        let editBudgetViewController = EditBudgetViewController(for: budget)
+        let editBudgetViewController = EditBudgetViewController(for: budget, index: indexPath.row)
         
         editBudgetViewController.definesPresentationContext = true
         editBudgetViewController.modalPresentationStyle = .popover
+        editBudgetViewController.delegate = self
         navigationController?.present(editBudgetViewController, animated: true, completion: nil)
 
     }
 }
 
 extension MyBudgetsViewController: pushModallyDelegate {
+    func editBudget(budget: Budget, index: Int) {
+        budgets[index] = budget
+        budgetCollectionView.reloadData()
+        print(budgets)
+    }
+    
+    func createBudget(budget: Budget) {
+        budgets.append(budget)
+        budgetCollectionView.reloadData()
+    }
+    
+    func deleteBudget(index: Int) {
+        budgets.remove(at: index)
+        budgetCollectionView.reloadData()
+    }
+    
     func pushSetBudgetViewController(for view: SetBudgetViewController) {
         present(view, animated: true, completion: nil)
     }
     
     
 }
+

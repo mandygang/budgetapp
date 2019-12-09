@@ -17,8 +17,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        let mainViewController = MainTabViewController()
-        window?.rootViewController = mainViewController
+        
+        let mainViewController = SignUpViewController()
+        //window?.rootViewController = mainViewController
+        
+        window?.rootViewController = UINavigationController(rootViewController: SignUpViewController())
+        
+//        let mainViewController = MainTabViewController()
+//        window?.rootViewController = mainViewController
         
         return true
     
