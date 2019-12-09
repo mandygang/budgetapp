@@ -45,6 +45,12 @@ Frontend-wise, Janice used a Cocoa-pod to create the circular progress wheel tha
 
 There are many features that we brainstormed for this app that were not implemented due to time-constraints so please take a look at the prototypes and screens in the Screens folder that our designer made to get a glimpse of our app at its full potential!
 
+**STEPS FOR GRADER:**
+
+The grader should sign up by inserting their name, email, and password. Then you can navigate to the expenses and budgets pages and add expenses and budgets. They should appear one by one in their respective collection views. Expenses and budgets can be tapped to be edited or deleted. **NOTE:** When editing an expense, all fields must be filled! 
+
+In order to see the circular progress bar move, try to restart and log back into the app to see change. The circular progress bar unfortunately does not reload when using the app, but if the data is being stored properly in the server, the bar should have changed when the whole app is reloaded. The expenses view controller contains a filter bar that can be used to filter through the expenses by category. The white box on the expenses page should have displayed total expenses for the each category and its budget but due to time constraints I was not able to finish implement that.
+
 
 ## The Team<3
 Backend: Mandy Gang, Ray Weng
