@@ -77,19 +77,17 @@ class ExpenseHeaderView: UICollectionReusableView {
 
         
         budgetLabel = UILabel()
-        if let selectedString = selectedCategory {
-            budgetLabel.text = "Overall" + selectedString + "Budget"
-        } else {
-            budgetLabel.text = "Overall Budget"
-        }
+        
+        budgetLabel.text = "Overall Budget"
         
         budgetLabel.font = .systemFont(ofSize: summaryFontSize, weight: .medium)
         budgetLabel.textColor = .secondary
         addSubview(budgetLabel)
         
         addExpenseButton = UIButton()
-        addExpenseButton.setTitle("add expense", for: .normal)
-        addExpenseButton.setBackgroundImage(UIImage(named: "accent"), for: .normal)
+//        addExpenseButton.setTitle("add expense", for: .normal)
+        addExpenseButton.setImage(UIImage(named: "addexpense"), for: .normal)
+//        addExpenseButton.setBackgroundImage(UIImage(named: "accent"), for: .normal)
         addExpenseButton.addTarget(self, action: #selector(createExpense), for: .touchUpInside)
         addSubview(addExpenseButton)
         
@@ -116,18 +114,19 @@ class ExpenseHeaderView: UICollectionReusableView {
             print("hello")
         }
         
-        addExpenseButton.snp.makeConstraints { make in
-            make.top.equalTo(summaryLabel.snp.bottom).offset(13)
-            make.width.equalTo(100)
-            make.height.equalTo(100)
-            make.centerX.equalTo(self)
-        }
         
         whiteBackground.snp.makeConstraints { make in
-            make.top.equalTo(addExpenseButton.snp.bottom).offset(13)
+            make.top.equalTo(summaryLabel.snp.bottom).offset(13)
             make.width.equalTo(self.frame.width - 30)
             make.centerX.equalTo(self)
             make.height.equalTo(150)
+        }
+        
+        addExpenseButton.snp.makeConstraints { make in
+            make.top.equalTo(whiteBackground.snp.bottom).offset(13)
+            make.width.equalTo(100)
+            make.height.equalTo(100)
+            make.centerX.equalTo(self)
         }
         
         budgetLabel.snp.makeConstraints { make in
@@ -142,13 +141,17 @@ class ExpenseHeaderView: UICollectionReusableView {
 extension ExpenseHeaderView: UICollectionViewDelegate, UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return categories.count
+        return Statics.categories.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let category = categories[indexPath.row]
         let cell = categoryCollectionView.dequeueReusableCell(withReuseIdentifier: CategoryCellReuseIdentifier, for: indexPath) as! CategoryCollectionViewCell
-        cell.configure(for: category)
+        if let selectedCat = selectedCategory {
+            cell.configure(for: category, selected: selectedCat)
+        } else {
+            cell.configure(for: category, selected: nil)
+        }
         return cell
     }
 
@@ -161,6 +164,7 @@ extension ExpenseHeaderView: UICollectionViewDelegate, UICollectionViewDataSourc
             selectedCategory = nil
         }
         delegate?.filter(for: selectedCategory)
+        categoryCollectionView.reloadData()
     }
     
     @objc func createExpense(){

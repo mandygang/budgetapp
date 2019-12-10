@@ -332,7 +332,8 @@ class SetBudgetViewController: UIViewController, UITextFieldDelegate {
         if let tag = selectedCat, let limitString = amountTextField.text {
             print(tag)
             print(limitString)
-            NetworkManager.createBudget(userID: 1, tagID: tag, limit: limitString) { budget in
+            let user = Statics.user!
+            NetworkManager.createBudget(userID: user.user_id, tagID: tag, limit: limitString) { budget in
                 
                 print("budget successfully created")
                 

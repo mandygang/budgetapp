@@ -6,7 +6,7 @@
 Only one repo used 
 
 ## A Look at the App
-![](Screenshots.png)
+![](Screenshots/Screenshots.png)
 (Find individual photos in screenshots folder)
 
 ## About the App
@@ -40,12 +40,16 @@ Some form of navigation (UINavigationController or UITabBarController) to naviga
 Integration with an API - this API must provide some meaningful value to your app. For example, if you’re creating a music app, you could use the Apple Music API. Most of you will integrate with an API written by students in the backend course.
 >All users and their corresponding budgets and expenses are stored in a server that we deployed. The app then uses a lot of network calls, such as getBudget, getUsers, getExpenses, in order to display content on the pages. The users are registered and stored in the server by first and last name, email and password. When the user logs in, the user_id corresponding to the user is is stored and used to get all the information stored related to that user by get method calls. Budgets and expenses can also be edited by using post calls and deleted by delete calls.
 
-## A Note to the Grader
-Frontend-wise, Janice used a Cocoa-pod to create the circular progress wheel that displays how much of your total budget that you have used. The more expenses you add, the closer you get to your final budget. The messages that our mascot, Bertie the dog, says on the homepage were supposed to change as you got closer and closer to the budget limit but unfortunately was not able to implement it as we ran out of time. 
+## A Note to the Grader from Janice
+Frontend-wise, I used a Cocoa-pod to create the circular progress wheel that displays how much of your total budget that you have used. The more expenses you add, the closer you get to your final budget. The messages that our mascot, Bertie the dog, says on the homepage were supposed to change as you got closer and closer to the budget limit but unfortunately was not able to implement it as we ran out of time. 
 
 There are many features that we brainstormed for this app that were not implemented due to time-constraints so please take a look at the prototypes and screens in the Screens folder that our designer made to get a glimpse of our app at its full potential!
 
+**STEPS FOR GRADER:**
 
+The grader should sign up by inserting their name, email, and password. Then you can navigate to the expenses and budgets pages and add expenses and budgets. They should appear one by one in their respective collection views. Expenses and budgets can be tapped to be edited or deleted. **NOTE:** When editing an expense, all fields must be filled! 
+
+In order to see the circular progress bar move, try to restart and log back into the app to see change. The circular progress bar unfortunately does not reload when using the app, but if the data is being stored properly in the server, the bar should have changed when the whole app is reloaded. The expenses view controller contains a filter bar that can be used to filter through the expenses by category. The white box on the expenses page should have displayed total expenses for the each category and its budget but due to time constraints I was not able to finish implement that.
 ## The Team<3
 Backend: Mandy Gang, Ray Weng
 

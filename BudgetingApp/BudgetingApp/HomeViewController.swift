@@ -140,7 +140,8 @@ class HomeViewController: UIViewController {
     }
     
     func getTotalExpenses() {
-        NetworkManager.getExpensesForUser(userID: 1) { expenses in
+        let user = Statics.user!
+        NetworkManager.getExpensesForUser(userID: user.user_id) { expenses in
             self.allExpenses = expenses
             self.totalExpenses = Statics.getTotalExpenses(expenses: self.allExpenses)
             print(self.totalExpenses)
@@ -152,7 +153,8 @@ class HomeViewController: UIViewController {
     }
     
     func getTotalBudget() {
-        
+        let user = Statics.user!
+        print(user.user_id)
         NetworkManager.getBudgets(userID: 1) { budgets in
             self.allBudgets = budgets
             self.totalBudget = Statics.getTotalBudget(budgets: self.allBudgets)
@@ -168,9 +170,6 @@ class HomeViewController: UIViewController {
                 self.progressBar.progressAngle = CGFloat(100)
             }
             
-//            DispatchQueue.main.async {
-//                self.budgetCollectionView.reloadData()
-//            }
         }
         
     }
@@ -197,3 +196,4 @@ class HomeViewController: UIViewController {
     }
     
 }
+

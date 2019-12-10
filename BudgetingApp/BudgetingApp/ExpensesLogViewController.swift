@@ -16,25 +16,17 @@ protocol UpdateExpensesDelegate: class {
     func editExpense(expense: Expense, index: Int)
 }
 
-//protocol UpdateExpensesDelegate: class {
-//    func deleteExpense(index: Int)
-//    func createExpense(expense: Expense)
-//    func editExpense(expense: Expense, index: Int)
-//}
+
 
 class ExpensesLogViewController: UIViewController {
     
-//    var categoryCollectionView: UICollectionView!
-//    let CategoryCellReuseIdentifier = "categoryCellReuseIdentifier"
-//    var categories: [String] = []
-//    var selectedCategory: String?
-    
+
     
     var expenseCollectionView: UICollectionView!
     let ExpenseCellReuseIdentifier = "expenseCellReuseIdentifier"
     let ExpenseHeaderReuseIdentifier = "ExpenseHeaderReuseIdentifier"
     
-    let headerHeight: CGFloat = 600
+    let headerHeight: CGFloat = 400
     
     var titleLabel: UILabel!
     var titleBackground: UILabel!
@@ -64,34 +56,6 @@ class ExpensesLogViewController: UIViewController {
         titleLabel.textColor = .white
         view.addSubview(titleLabel)
         
-//        categories = ["Food", "Entertainment", "Bills", "Groceries", "Shop", "Transport", "Other"]
-//
-//        let categoryLayout = UICollectionViewFlowLayout()
-//        categoryLayout.scrollDirection = .horizontal
-//        categoryLayout.minimumLineSpacing = CGFloat(8)
-//        categoryLayout.minimumInteritemSpacing = CGFloat(8)
-//
-//        categoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: categoryLayout)
-//        categoryCollectionView.backgroundColor = .white
-//        categoryCollectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCellReuseIdentifier)
-//        categoryCollectionView.showsHorizontalScrollIndicator = false
-//        categoryCollectionView.dataSource = self
-//        categoryCollectionView.delegate = self
-//        view.addSubview(categoryCollectionView)
-        
-//        let expense1 = Expense(category: "Food", amount: "14", note: "Farmer's market")
-//        let expense2 = Expense(category: "Food", amount: "30", note: "Oyster bar")
-//        let expense3 = Expense(category: "Entertainment", amount: "20", note: "Movie")
-//        let expense4 = Expense(category: "Bills", amount: "100", note: "Phone bill")
-//        let expense5 = Expense(category: "Groceries", amount: "60", note: "Target run!")
-//        let expense6 = Expense(category: "Groceries", amount: "30", note: "Annabel's")
-//        let expense7 = Expense(category: "Shop", amount: "500", note: "Black friday  shopping")
-//        let expense8 = Expense(category: "Transport", amount: "10", note: "Gas")
-//        let expense9 = Expense(category: "Other", amount: "40", note: "Parking ticket")
-//        let expense10 = Expense(category: "Other", amount: "20", note: "Donations")
-//        
-//        expenses = [expense1, expense2, expense3, expense4, expense5, expense6, expense7, expense8, expense9, expense10]
-//        visibleExpenses = [expense1, expense2, expense3, expense4, expense5, expense6, expense7, expense8, expense9, expense10]
         
         let expenseLayout = UICollectionViewFlowLayout()
         expenseLayout.scrollDirection = .vertical
@@ -137,11 +101,16 @@ class ExpensesLogViewController: UIViewController {
         }
         
     }
+
     
     func getExpenses() {
-        NetworkManager.getExpensesForUser(userID: 1) { expenses in
+        let user = Statics.user!
+        print("printing user now")
+        print(user)
+        NetworkManager.getExpensesForUser(userID: user.user_id) { expenses in
             self.expenses = expenses
             self.visibleExpenses = expenses
+            print(self.expenses)
             print(expenses)
             print("done getting expenses")
             DispatchQueue.main.async {
@@ -314,32 +283,3 @@ extension ExpensesLogViewController: UpdateExpensesDelegate {
 }
 
 
-//    func deleteExpense(index: Int) {
-//        let expense = visibleExpenses[index]
-//        expenses.firstIndex { expense -> Bool in
-//            if expense ==
-//        //}
-//
-//        visibleExpenses.remove(at: index)
-//        expenseCollectionView.reloadData()
-//    }
-//extension ExpensesLogViewController: UpdateExpensesDelegate {
-//    func deleteExpense(index: Int) {
-//        //expenses.firstIndex(where: <#T##(Expense) throws -> Bool#>)
-//        visibleExpenses.remove(at: index)
-//        expenseCollectionView.reloadData()
-//    }
-//
-//    func createExpense(expense: Expense) {
-//        expenses.append(expense)
-//        visibleExpenses.append(expense)
-//        expenseCollectionView.reloadData()
-//    }
-//
-//    func editExpense(expense: Expense, index: Int) {
-//        visibleExpenses[index] = expense
-//        expenseCollectionView.reloadData()
-//    }
-//
-//
-//}

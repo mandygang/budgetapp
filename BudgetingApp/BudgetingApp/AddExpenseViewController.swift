@@ -255,7 +255,7 @@ class AddExpenseViewController: UIViewController {
         }
         
         titleTextField.snp.makeConstraints { make in
-            make.top.equalTo(otherButton.snp.bottom).offset(80)
+            make.top.equalTo(otherButton.snp.bottom).offset(40)
             make.centerX.equalTo(view)
         }
         
@@ -278,7 +278,7 @@ class AddExpenseViewController: UIViewController {
             make.width.equalTo(190)
             make.height.equalTo(60)
             make.centerX.equalTo(view)
-            make.top.equalTo(amountTextField.snp.bottom).offset(40)
+            make.top.equalTo(descriptionTextField.snp.bottom).offset(20)
         }
         
     }
@@ -403,7 +403,8 @@ class AddExpenseViewController: UIViewController {
             print(limitString)
             if let title = titleTextField.text, let amount = amountTextField.text, let description = descriptionTextField.text {
                 
-                NetworkManager.createExpense(userID: 1, tagID: tag, title: title, amount: amount, description: description, date: "10/10/10") { expense in
+                let user = Statics.user!
+                NetworkManager.createExpense(userID: user.user_id, tagID: tag, title: title, amount: amount, description: description, date: "10/10/10") { expense in
                     self.delegate?.createExpense(expense: expense)
                     print("expense successfully created")
                     self.dismiss(animated: true, completion: nil)
