@@ -26,6 +26,7 @@ class LogInViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = .background
+        self.hideKeyboardWhenTappedAround() 
         
         getUsers()
         

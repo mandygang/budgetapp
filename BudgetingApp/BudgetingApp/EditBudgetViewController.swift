@@ -42,7 +42,7 @@ class EditBudgetViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.hideKeyboardWhenTappedAround() 
         view.backgroundColor = .white
         view.layer.cornerRadius = 40
         

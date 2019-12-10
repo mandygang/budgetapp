@@ -8,6 +8,8 @@
 
 import Foundation
 
+import UIKit
+
 struct Statics {
     static let categories: [String] = ["Food", "Entertainment", "Bills", "Groceries", "Shop", "Transport", "Other"]
     
@@ -28,6 +30,18 @@ struct Statics {
         }
         
         return total
+    }
+}
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
 
